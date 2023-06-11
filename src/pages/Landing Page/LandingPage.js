@@ -1,11 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./LandingPage.css";
 
 import landingPageImg from "../../images/landing-image.jpg";
 
 export const LandingPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
+  }, []);
+
   return (
     <div className="full-page d-flex jc-center ai-center">
       <div className="half content">
@@ -20,8 +28,12 @@ export const LandingPage = () => {
           </p>
         </div>
         <div className="animate__animated animate__fadeInUp links">
-          <Link className="join-now">Join Now</Link>
-          <Link className="already-a-user">Already a user?</Link>
+          <Link to="/register" className="join-now">
+            Join Now
+          </Link>
+          <Link to="/login" className="already-a-user">
+            Already a user?
+          </Link>
         </div>
       </div>
       <div className="half landing-image">

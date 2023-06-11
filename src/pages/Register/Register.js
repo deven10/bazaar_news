@@ -1,13 +1,105 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { ReactToastify } from "../../utility/ReactToastify";
 
 export const Register = () => {
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
+  }, []);
+
+  const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    acceptedTerms: false,
+  });
+
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+
+    if (id === "terms") {
+      setUser({ ...user, acceptedTerms: !user.acceptedTerms });
+    } else {
+      setUser((prevState) => ({
+        ...prevState,
+        [id]: value,
+      }));
+    }
+  };
+
+  const clearState = () => {
+    setUser({ username: "", password: "", acceptedTerms: false });
+  };
+
+  const registerUser = async () => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+
+    try {
+      const data = {
+        firstName: user?.firstname,
+        lastName: user?.lastname,
+        username: user?.username,
+        password: user?.password,
+      };
+
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      if (result.errors) {
+        result.errors.map((e) => ReactToastify(e, "error"));
+      } else {
+        ReactToastify("User Created 🚀", "success");
+        clearState();
+        localStorage.setItem("token", result.encodedToken);
+        localStorage.setItem("user", JSON.stringify(result.createdUser));
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (user.password === user.confirmPassword && user.acceptedTerms) {
+      registerUser();
+    } else {
+      if (!user.acceptedTerms) {
+        ReactToastify("Please accept our terms & conditions policy", "error");
+      } else {
+        ReactToastify(
+          "Your password is not matching with confirm password",
+          "error"
+        );
+      }
+    }
+  };
+
   return (
     <div className="main-form-page">
       <form
-        className="form"
-        // onSubmit={handleSubmit}
+        className="form animate__animated animate__fadeIn"
+        onSubmit={handleSubmit}
       >
         <h2>Register</h2>
 
@@ -17,8 +109,8 @@ export const Register = () => {
           </label>
           <input
             id="firstname"
-            // value={user.firstname}
-            // onChange={handleChange}
+            value={user.firstname}
+            onChange={handleChange}
             type="text"
             className="form-input"
             required
@@ -31,8 +123,8 @@ export const Register = () => {
           </label>
           <input
             id="lastname"
-            // value={user.lastname}
-            // onChange={handleChange}
+            value={user.lastname}
+            onChange={handleChange}
             type="text"
             className="form-input"
             required
@@ -40,17 +132,17 @@ export const Register = () => {
           />
         </div>
         <div className="form-group email">
-          <label htmlFor="email" className="form-label">
-            Email address
+          <label htmlFor="username" className="form-label">
+            Username
           </label>
           <input
-            id="email"
-            // value={user.email}
-            // onChange={handleChange}
-            type="email"
+            id="username"
+            value={user.username}
+            onChange={handleChange}
+            type="text"
             className="form-input"
             required
-            placeholder="Enter your Email address..."
+            placeholder="Enter your username..."
           />
         </div>
         <div className="form-group">
@@ -60,8 +152,8 @@ export const Register = () => {
           <div className="password-field">
             <input
               id="password"
-              // value={user.password}
-              // onChange={handleChange}
+              value={user.password}
+              onChange={handleChange}
               className="form-input"
               type={`${showPassword ? "text" : "password"}`}
               required
@@ -87,8 +179,8 @@ export const Register = () => {
           <div className="password-field">
             <input
               id="confirmPassword"
-              // value={user.confirmPassword}
-              // onChange={handleChange}
+              value={user.confirmPassword}
+              onChange={handleChange}
               className="form-input"
               type={`${showPassword ? "text" : "password"}`}
               required
@@ -110,12 +202,12 @@ export const Register = () => {
         <div className="form-check">
           <div className="checkbox-div">
             <input
-              // onChange={handleChange}
-              // value={user.acceptedTerms}
+              onChange={handleChange}
+              value={user.acceptedTerms}
               type="checkbox"
               className="checkbox-input"
               id="terms"
-              // checked={user.acceptedTerms}
+              checked={user.acceptedTerms}
             />
             <label htmlFor="terms" className="form-label">
               I agree all

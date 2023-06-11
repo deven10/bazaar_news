@@ -5,15 +5,20 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
+import { AuthContext, ContextAuth } from "./contexts/AuthContext";
 
 // Call make Server
 makeServer();
+
+export { ContextAuth };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthContext>
+        <App />
+      </AuthContext>
     </BrowserRouter>
   </React.StrictMode>
 );
