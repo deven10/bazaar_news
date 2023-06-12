@@ -79,10 +79,10 @@ export const Navbar = () => {
       <div className="logo">Bazaar New's 📰</div>
       <div className="profile">
         <div className="theme-toggler">
-          <label class="ui-switch">
+          <label className="ui-switch">
             <input type="checkbox" />
-            <div class="slider">
-              <div class="circle"></div>
+            <div className="slider">
+              <div className="circle"></div>
             </div>
           </label>
         </div>

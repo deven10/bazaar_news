@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { ReactToastify } from "../../utility/ReactToastify";
 
@@ -56,23 +57,19 @@ export const Register = () => {
         password: user?.password,
       };
 
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      const result = await axios.post(`/api/auth/signup`, data);
 
-      const result = await response.json();
-      if (result.errors) {
-        result.errors.map((e) => ReactToastify(e, "error"));
-      } else {
+      if (result.status === 201) {
         ReactToastify("User Created 🚀", "success");
         clearState();
         localStorage.setItem("token", result.encodedToken);
         localStorage.setItem("user", JSON.stringify(result.createdUser));
         navigate("/home");
+      } else {
+        ReactToastify("Something went wrong, Please try again!", "error");
       }
     } catch (error) {
-      console.log(error);
+      error.response.data.errors.map((e) => ReactToastify(e, "error"));
     } finally {
       setIsSubmitting(false);
     }

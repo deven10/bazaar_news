@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { ReactToastify } from "../utility/ReactToastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const ContextAuth = createContext();
 
@@ -33,32 +34,20 @@ export const AuthContext = ({ children }) => {
         password: user.password,
       };
 
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      const result = await axios.post(`/api/auth/login`, data);
 
-      const result = await response.json();
-
-      if (response.status === 200) {
-        localStorage.setItem("token", result.encodedToken);
-        localStorage.setItem("user", JSON.stringify(result.foundUser));
+      if (result.status === 200) {
+        localStorage.setItem("token", result.data.encodedToken);
+        localStorage.setItem("user", JSON.stringify(result.data.foundUser));
         setToken(result.encodedToken);
         ReactToastify("Logged in Successfully", "success");
         clearState();
         navigate("/home");
       } else {
-        if (result.errors) {
-          result.errors.map((e) => ReactToastify(e, "error"));
-        } else {
-          ReactToastify(
-            "Something went wrong, please try again later!",
-            "error"
-          );
-        }
+        ReactToastify("Something went wrong, Please try again!", "error");
       }
     } catch (error) {
-      console.log(error);
+      error?.response?.data?.errors?.map((e) => ReactToastify(e, "error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -75,32 +64,20 @@ export const AuthContext = ({ children }) => {
         password: "adarshBalika123",
       };
 
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      const result = await axios.post(`/api/auth/login`, data);
 
-      const result = await response.json();
-
-      if (response.status === 200) {
-        localStorage.setItem("token", result.encodedToken);
-        localStorage.setItem("user", JSON.stringify(result.foundUser));
+      if (result.status === 200) {
+        localStorage.setItem("token", result.data.encodedToken);
+        localStorage.setItem("user", JSON.stringify(result.data.foundUser));
         setToken(result.encodedToken);
         ReactToastify("Logged in Successfully as Guest", "success");
         clearState();
         navigate("/home");
       } else {
-        if (result.errors) {
-          result.errors.map((e) => ReactToastify(e, "error"));
-        } else {
-          ReactToastify(
-            "Something went wrong, please try again later!",
-            "error"
-          );
-        }
+        ReactToastify("Something went wrong, Please try again!", "error");
       }
     } catch (error) {
-      console.log(error);
+      error?.response?.data?.errors?.map((e) => ReactToastify(e, "error"));
     } finally {
       setIsSubmitting(false);
     }
