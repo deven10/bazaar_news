@@ -1,3 +1,7 @@
+.quick-links{
+  position: sticky;
+}
+
 .quick-links .link{
     display: flex;
     align-items: center;

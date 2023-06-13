@@ -1,3 +1,80 @@
+/* LEFT SIDE is an individual component QUICK LINKS */
+
+/* ********************** MIDDLE (users posts) ************************ */
+.users-post-section-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.create-a-post-section{
+    display: flex;
+    align-items: start;
+    gap: 5px;
+}
+
+.logged-in-user-img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: start;
+}
+
+.create-a-post-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+}
+
+.create-a-post-input{
+    background-color: transparent;
+    border: .5px solid #bababa;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.create-a-post-footer-wrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.create-a-post-footer-wrapper i{
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+}
+
+.add-new-post-button{
+    --primary-color: #3aa856;
+    --secondary-color: #fff;
+    --hover-color: #111;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 5px;
+    color: var(--secondary-color);
+    padding: .1em 1em;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}  
+  .add-new-post-button:hover {
+    background-color: var(--hover-color);
+  }
+
+/* ********************** RIGHT SIDE (suggested users) ************************ */
+/* ---------- Search Box ---------- */
 .search-bar{
     position: relative;
 }
@@ -28,3 +105,120 @@
     cursor: pointer;
     padding: 10px 20px;
 }
+
+/* ---------- Suggested Users ---------------- */
+.suggested-users-wrapper{
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.suggested-users{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 10px;
+}
+
+.suggested-users .title{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1px solid #bababa;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+.individual-user{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.individual-user p{
+    margin: 0;
+}
+
+.individual-user .name{
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.individual-user .username{
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.suggested-users-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+
+
+/* ---------------------------------------------- */
+.follow-button {
+    --primary-color: #3aa856;
+    --secondary-color: #fff;
+    --hover-color: #111;
+    --arrow-width: 10px;
+    --arrow-stroke: 2px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 8px;
+    color: var(--secondary-color);
+    padding: 0em 1em;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .follow-button .arrow-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .follow-button .arrow {
+    margin-top: 1px;
+    width: var(--arrow-width);
+    background: var(--primary-color);
+    height: var(--arrow-stroke);
+    position: relative;
+    transition: 0.2s;
+  }
+  
+  .follow-button .arrow::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: solid var(--secondary-color);
+    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+    display: inline-block;
+    top: -3px;
+    right: 3px;
+    transition: 0.2s;
+    padding: 3px;
+    transform: rotate(-45deg);
+  }
+  
+  .follow-button:hover {
+    background-color: var(--hover-color);
+  }
+  
+  .follow-button:hover .arrow {
+    background: var(--secondary-color);
+  }
+  
+  .follow-button:hover .arrow:before {
+    right: 0;
+  }
