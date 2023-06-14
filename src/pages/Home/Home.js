@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar } from "../../components/Header/Navbar";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
+import { ContextUsers } from "../../contexts/UsersContext";
+import { ContextPosts } from "../../contexts/PostsContext";
 
 import "./Home.css";
 
 import deven from "../../images/deven.jpg";
 
 export const Home = () => {
+  const { usersData } = useContext(ContextUsers);
+  const { postsData } = useContext(ContextPosts);
+
   return (
     <div>
       <Navbar />
@@ -34,8 +39,48 @@ export const Home = () => {
                     </div>
                   </div>
                 </div>
-                <div className="default-section-block users-posts-section">
-                  hello world
+
+                <div className="users-posts-section">
+                  <div className="default-section-block filters-wrapper">
+                    <p>Latest Posts</p>
+                    <i className="fa-solid fa-filter"></i>
+                  </div>
+
+                  <div className="posts-wrapper">
+                    {postsData?.map((post) => {
+                      return (
+                        <div
+                          className="default-section-block posts"
+                          key={post._id}
+                        >
+                          <div className="post-user-img">
+                            <img src={deven} alt="deven" />
+                          </div>
+                          <div className="post-details">
+                            <div className="post-user-created-date">
+                              <p className="post-user-date">
+                                {post.firstName} {post.lastName} ·{" "}
+                                <span>Dec 19, 2022</span>
+                              </p>
+                              <div className="post-edit-or-delete-options">
+                                ...
+                              </div>
+                            </div>
+                            <p className="post-user-username">
+                              @{post.username}
+                            </p>
+                            <p className="post-user-content">{post.content}</p>
+                            <div className="post-call-to-action-buttons">
+                              <i className="fa-regular fa-heart"></i>
+                              <i className="fa-regular fa-comment"></i>
+                              <i className="fa-solid fa-share-nodes"></i>
+                              <i className="fa-regular fa-bookmark"></i>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -55,7 +100,30 @@ export const Home = () => {
                 <div className="default-section-block">
                   <div className="suggested-users">
                     <p className="title">Suggested Users</p>
-                    <div className="individual-user">
+                    {usersData?.map((user) => {
+                      return (
+                        <div key={user._id} className="individual-user">
+                          <img
+                            className="suggested-users-img"
+                            src={deven}
+                            alt="deven"
+                          />
+                          <div>
+                            <p className="name">
+                              {user.firstName} {user.lastName}
+                            </p>
+                            <p className="username">@{user.username}</p>
+                          </div>
+                          <button className="follow-button">
+                            Follow
+                            <div className="arrow-wrapper">
+                              <div className="arrow"></div>
+                            </div>
+                          </button>
+                        </div>
+                      );
+                    })}
+                    {/* <div className="individual-user">
                       <img
                         className="suggested-users-img"
                         src={deven}
@@ -67,8 +135,8 @@ export const Home = () => {
                       </div>
                       <button className="follow-button">
                         Follow
-                        <div class="arrow-wrapper">
-                          <div class="arrow"></div>
+                        <div className="arrow-wrapper">
+                          <div className="arrow"></div>
                         </div>
                       </button>
                     </div>
@@ -84,8 +152,8 @@ export const Home = () => {
                       </div>
                       <button className="follow-button">
                         Follow
-                        <div class="arrow-wrapper">
-                          <div class="arrow"></div>
+                        <div className="arrow-wrapper">
+                          <div className="arrow"></div>
                         </div>
                       </button>
                     </div>
@@ -101,11 +169,11 @@ export const Home = () => {
                       </div>
                       <button className="follow-button">
                         Follow
-                        <div class="arrow-wrapper">
-                          <div class="arrow"></div>
+                        <div className="arrow-wrapper">
+                          <div className="arrow"></div>
                         </div>
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

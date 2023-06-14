@@ -10,7 +10,7 @@
 .create-a-post-section{
     display: flex;
     align-items: start;
-    gap: 5px;
+    gap: 10px;
 }
 
 .logged-in-user-img{
@@ -71,6 +71,116 @@
 }  
   .add-new-post-button:hover {
     background-color: var(--hover-color);
+  }
+
+  .filters-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #bababa;
+  }
+
+  .filters-wrapper p{
+    margin: 0;
+    font-size: 16px;
+    font-family:'Poppins', sans-serif;
+    font-weight: 500;
+  }
+
+  .filters-wrapper i{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Posts */
+  .posts-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .posts{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .post-user-img img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+  }
+
+  .post-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .post-user-created-date{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .post-user-date{
+    margin: 0;
+    font-size: 16px;
+    font-family:'Poppins', sans-serif;
+    font-weight: 500;
+  }
+
+  .post-user-date span{
+    color: #666666;
+    font-size: 16px;
+    font-family:'Poppins', sans-serif;
+    font-weight: 400;
+  }
+
+  .post-edit-or-delete-options{
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .post-user-username{
+    margin: -8px 0px 10px 0px;
+    font-size: 14px;
+    font-family:'Poppins', sans-serif;
+    font-weight: 400;
+  }
+
+  .post-user-content{
+    margin: 0;
+    font-size: 15px;
+    font-family:'Poppins', sans-serif;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  .post-call-to-action-buttons{
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .post-call-to-action-buttons i{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 /* ********************** RIGHT SIDE (suggested users) ************************ */

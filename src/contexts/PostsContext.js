@@ -3,18 +3,20 @@ import axios from "axios";
 
 import { ReactToastify } from "../utility/ReactToastify";
 
-export const ContextUsers = createContext();
+export const ContextPosts = createContext();
 
-export const UsersContext = ({ children }) => {
-  const [usersData, setUsersData] = useState([]);
+export const PostsContext = ({ children }) => {
+  const [postsData, setPostsData] = useState([]);
 
-  const fetchUsers = async () => {
+  const fetchPosts = async () => {
     try {
-      const result = await axios.get(`/api/users`);
+      const result = await axios.get(`/api/posts`);
+
+      console.log("posts = ", result);
       if (result.status === 200) {
-        setUsersData(result.data.users);
+        setPostsData(result.data.posts);
       } else {
-        setUsersData([]);
+        setPostsData([]);
       }
     } catch (error) {
       console.log("err = ", error);
@@ -23,12 +25,12 @@ export const UsersContext = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchPosts();
   }, []);
 
   return (
-    <ContextUsers.Provider value={{ usersData }}>
+    <ContextPosts.Provider value={{ postsData }}>
       {children}
-    </ContextUsers.Provider>
+    </ContextPosts.Provider>
   );
 };
