@@ -78,6 +78,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    position: relative;
   }
 
   .filters-wrapper p{
@@ -179,6 +180,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .MuiBackdrop-root.MuiBackdrop-invisible.MuiModal-backdrop.css-g3hgs1-MuiBackdrop-root-MuiModal-backdrop{
+    opacity: 0.1 !important;
+    background-color: #000;
+  }
+
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-3bmhjh-MuiPaper-root-MuiPopover-paper{
+    position: absolute;
+    top: 320px !important;
+    left: 668px !important;
+  }
+
+  .popover-p{
+    margin: 0;
+    font-size: 16px;
+    font-family:'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .popover-p:nth-child(1){
+    margin-bottom: 8px;
+  }
+
+  .post-likes-count{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .post-likes-count p{
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
   }
 
 /* ********************** RIGHT SIDE (suggested users) ************************ */

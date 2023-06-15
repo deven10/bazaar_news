@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
-import { Navbar } from "../../components/Header/Navbar";
+import React, { useContext, useState, useEffect } from "react";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { ContextUsers } from "../../contexts/UsersContext";
 import { ContextPosts } from "../../contexts/PostsContext";
+import { Navbar } from "../../components/Header/Navbar";
 
 import "./Home.css";
 
@@ -12,6 +14,96 @@ import deven from "../../images/deven.jpg";
 export const Home = () => {
   const { usersData } = useContext(ContextUsers);
   const { postsData } = useContext(ContextPosts);
+
+  console.log("posts = ", postsData);
+  const [usersPosts, setUsersPosts] = useState([]);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const [sortBy, setSortBy] = useState("");
+
+  useEffect(() => {
+    if (sortBy === "latest") {
+      function sortByCreatedAtDesc(data) {
+        return data?.sort(
+          (a, b) => new Date(b?.createdAt) - new Date(a?.createdAt)
+        );
+      }
+      const sortedData = sortByCreatedAtDesc(postsData);
+      setUsersPosts(sortedData);
+    } else if (sortBy === "trending") {
+      function sortByLikes(data) {
+        return data.sort((a, b) => b?.likes?.likeCount - a?.likes?.likeCount);
+      }
+      const sortedData = sortByLikes(postsData);
+      setUsersPosts(sortedData);
+    } else {
+      setUsersPosts(postsData);
+    }
+  }, [sortBy, postsData, anchorEl]);
+
+  const convertDate = (inputDate) => {
+    const date = new Date(inputDate);
+    const options = { month: "short", day: "numeric", year: "numeric" };
+    const formattedDate = date.toLocaleString("en-US", options);
+
+    return formattedDate;
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const uniqueID = open ? "simple-popover" : undefined;
+
+  const PopOver = () => {
+    return (
+      <div>
+        <i
+          className="fa-solid fa-filter"
+          aria-describedby={uniqueID}
+          // variant="contained"
+          onClick={handleClick}
+        ></i>
+        <Popover
+          id={uniqueID}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          // anchorOrigin={{
+          //   vertical: "bottom",
+          //   horizontal: "left",
+          // }}
+        >
+          <Typography sx={{ p: 2 }}>
+            <p
+              className="popover-p"
+              onClick={() => {
+                setSortBy("latest");
+                handleClick();
+              }}
+            >
+              Latest Posts
+            </p>
+            <p
+              className="popover-p"
+              onClick={() => {
+                setSortBy("trending");
+                handleClose();
+              }}
+            >
+              Trending Posts
+            </p>
+          </Typography>
+        </Popover>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -42,12 +134,22 @@ export const Home = () => {
 
                 <div className="users-posts-section">
                   <div className="default-section-block filters-wrapper">
-                    <p>Latest Posts</p>
-                    <i className="fa-solid fa-filter"></i>
+                    <p>
+                      {sortBy === "latest"
+                        ? "Latest Posts"
+                        : sortBy === "trending"
+                        ? "Trending Posts"
+                        : ""}
+                    </p>
+                    {/* <i className="fa-solid fa-filter"></i> */}
+                    <div className="popover-mui">
+                      <PopOver />
+                    </div>
                   </div>
 
                   <div className="posts-wrapper">
-                    {postsData?.map((post) => {
+                    {usersPosts?.map((post) => {
+                      console.log();
                       return (
                         <div
                           className="default-section-block posts"
@@ -60,7 +162,9 @@ export const Home = () => {
                             <div className="post-user-created-date">
                               <p className="post-user-date">
                                 {post.firstName} {post.lastName} ·{" "}
-                                <span>Dec 19, 2022</span>
+                                <span>
+                                  {convertDate(post.createdAt) ?? "---"}
+                                </span>
                               </p>
                               <div className="post-edit-or-delete-options">
                                 ...
@@ -71,7 +175,14 @@ export const Home = () => {
                             </p>
                             <p className="post-user-content">{post.content}</p>
                             <div className="post-call-to-action-buttons">
-                              <i className="fa-regular fa-heart"></i>
+                              <div className="post-likes-count">
+                                <i className="fa-regular fa-heart"></i>{" "}
+                                <p>
+                                  {post.likes.likeCount > 0
+                                    ? post.likes.likeCount
+                                    : ""}
+                                </p>
+                              </div>
                               <i className="fa-regular fa-comment"></i>
                               <i className="fa-solid fa-share-nodes"></i>
                               <i className="fa-regular fa-bookmark"></i>
