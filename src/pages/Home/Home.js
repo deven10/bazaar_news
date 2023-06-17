@@ -15,32 +15,32 @@ export const Home = () => {
   const { usersData } = useContext(ContextUsers);
   const { postsData } = useContext(ContextPosts);
 
-  console.log("posts = ", postsData);
   const [usersPosts, setUsersPosts] = useState([]);
+  const [sortBy, setSortBy] = useState("latest");
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const [sortBy, setSortBy] = useState("");
-
-  useEffect(() => {
-    if (sortBy === "latest") {
-      function sortByCreatedAtDesc(data) {
+  const sortByFunction = (type) => {
+    if (type === "trending") {
+      const sortByLikes = (data) => {
+        return data.sort((a, b) => b?.likes?.likeCount - a?.likes?.likeCount);
+      };
+      const mostLiked = sortByLikes(postsData);
+      setUsersPosts(mostLiked);
+      setSortBy("trending");
+    } else {
+      const sortByCreatedAtDesc = (data) => {
         return data?.sort(
           (a, b) => new Date(b?.createdAt) - new Date(a?.createdAt)
         );
-      }
-      const sortedData = sortByCreatedAtDesc(postsData);
-      setUsersPosts(sortedData);
-    } else if (sortBy === "trending") {
-      function sortByLikes(data) {
-        return data.sort((a, b) => b?.likes?.likeCount - a?.likes?.likeCount);
-      }
-      const sortedData = sortByLikes(postsData);
-      setUsersPosts(sortedData);
-    } else {
-      setUsersPosts(postsData);
+      };
+      const latestData = sortByCreatedAtDesc(postsData);
+      setUsersPosts(latestData);
+      setSortBy("latest");
     }
-  }, [sortBy, postsData, anchorEl]);
+  };
+
+  useEffect(() => {
+    sortByFunction("latest");
+  }, [postsData]);
 
   const convertDate = (inputDate) => {
     const date = new Date(inputDate);
@@ -48,61 +48,6 @@ export const Home = () => {
     const formattedDate = date.toLocaleString("en-US", options);
 
     return formattedDate;
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const uniqueID = open ? "simple-popover" : undefined;
-
-  const PopOver = () => {
-    return (
-      <div>
-        <i
-          className="fa-solid fa-filter"
-          aria-describedby={uniqueID}
-          // variant="contained"
-          onClick={handleClick}
-        ></i>
-        <Popover
-          id={uniqueID}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          // anchorOrigin={{
-          //   vertical: "bottom",
-          //   horizontal: "left",
-          // }}
-        >
-          <Typography sx={{ p: 2 }}>
-            <p
-              className="popover-p"
-              onClick={() => {
-                setSortBy("latest");
-                handleClick();
-              }}
-            >
-              Latest Posts
-            </p>
-            <p
-              className="popover-p"
-              onClick={() => {
-                setSortBy("trending");
-                handleClose();
-              }}
-            >
-              Trending Posts
-            </p>
-          </Typography>
-        </Popover>
-      </div>
-    );
   };
 
   return (
@@ -134,22 +79,26 @@ export const Home = () => {
 
                 <div className="users-posts-section">
                   <div className="default-section-block filters-wrapper">
-                    <p>
-                      {sortBy === "latest"
-                        ? "Latest Posts"
-                        : sortBy === "trending"
-                        ? "Trending Posts"
-                        : ""}
+                    <p
+                      style={{
+                        fontWeight: `${sortBy === "latest" ? "700" : "400"}`,
+                      }}
+                      onClick={() => sortByFunction("latest")}
+                    >
+                      Latest Posts
                     </p>
-                    {/* <i className="fa-solid fa-filter"></i> */}
-                    <div className="popover-mui">
-                      <PopOver />
-                    </div>
+                    <p
+                      style={{
+                        fontWeight: `${sortBy === "trending" ? "700" : "400"}`,
+                      }}
+                      onClick={() => sortByFunction("trending")}
+                    >
+                      Trending Posts
+                    </p>
                   </div>
 
                   <div className="posts-wrapper">
                     {usersPosts?.map((post) => {
-                      console.log();
                       return (
                         <div
                           className="default-section-block posts"

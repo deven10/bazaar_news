@@ -48,7 +48,7 @@ export const posts = [
     username: "brucewayne",
     firstName: "Bruce",
     lastName: "Wayne",
-    createdAt: "05/31/2023",
+    createdAt: "04/04/2019",
     updatedAt: formatDate(),
   },
   {

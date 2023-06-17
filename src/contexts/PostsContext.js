@@ -11,8 +11,6 @@ export const PostsContext = ({ children }) => {
   const fetchPosts = async () => {
     try {
       const result = await axios.get(`/api/posts`);
-
-      console.log("posts = ", result);
       if (result.status === 200) {
         setPostsData(result.data.posts);
       } else {
