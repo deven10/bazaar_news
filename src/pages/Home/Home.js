@@ -1,6 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { ContextUsers } from "../../contexts/UsersContext";
@@ -13,11 +11,13 @@ import deven from "../../images/deven.jpg";
 
 export const Home = () => {
   const { usersData } = useContext(ContextUsers);
-  const { postsData } = useContext(ContextPosts);
+  const { postsData, AddPost, postContent, setPostContent } =
+    useContext(ContextPosts);
 
   const [usersPosts, setUsersPosts] = useState([]);
   const [sortBy, setSortBy] = useState("latest");
 
+  // sort functionality
   const sortByFunction = (type) => {
     if (type === "trending") {
       const sortByLikes = (data) => {
@@ -42,6 +42,7 @@ export const Home = () => {
     sortByFunction("latest");
   }, [postsData]);
 
+  // helper function to convert the date
   const convertDate = (inputDate) => {
     const date = new Date(inputDate);
     const options = { month: "short", day: "numeric", year: "numeric" };
@@ -69,10 +70,17 @@ export const Home = () => {
                     <textarea
                       className="create-a-post-input"
                       placeholder="What's happening?"
+                      value={postContent}
+                      onChange={(e) => setPostContent(e.target.value)}
                     ></textarea>
                     <div className="create-a-post-footer-wrapper">
                       <i className="fa-solid fa-image"></i>
-                      <button className="add-new-post-button">Post</button>
+                      <button
+                        onClick={() => AddPost(postContent)}
+                        className="add-new-post-button"
+                      >
+                        Post
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -183,57 +191,6 @@ export const Home = () => {
                         </div>
                       );
                     })}
-                    {/* <div className="individual-user">
-                      <img
-                        className="suggested-users-img"
-                        src={deven}
-                        alt="deven"
-                      />
-                      <div>
-                        <p className="name">Tanay Pratap</p>
-                        <p className="username">@pratap_tanay</p>
-                      </div>
-                      <button className="follow-button">
-                        Follow
-                        <div className="arrow-wrapper">
-                          <div className="arrow"></div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="individual-user">
-                      <img
-                        className="suggested-users-img"
-                        src={deven}
-                        alt="deven"
-                      />
-                      <div>
-                        <p className="name">Tanay Pratap</p>
-                        <p className="username">@pratap_tanay</p>
-                      </div>
-                      <button className="follow-button">
-                        Follow
-                        <div className="arrow-wrapper">
-                          <div className="arrow"></div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="individual-user">
-                      <img
-                        className="suggested-users-img"
-                        src={deven}
-                        alt="deven"
-                      />
-                      <div>
-                        <p className="name">Tanay Pratap</p>
-                        <p className="username">@pratap_tanay</p>
-                      </div>
-                      <button className="follow-button">
-                        Follow
-                        <div className="arrow-wrapper">
-                          <div className="arrow"></div>
-                        </div>
-                      </button>
-                    </div> */}
                   </div>
                 </div>
               </div>

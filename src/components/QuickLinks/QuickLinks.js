@@ -51,7 +51,7 @@ export const QuickLinks = () => {
           Bookmark
         </Link>
       </div>
-      <AddPostButton />
+      {/* <AddPostButton /> */}
     </div>
   );
 };
