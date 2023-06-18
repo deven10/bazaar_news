@@ -6,12 +6,15 @@ import { ReactToastify } from "../utility/ReactToastify";
 export const ContextPosts = createContext();
 
 export const PostsContext = ({ children }) => {
-  const [postsData, setPostsData] = useState([]);
+  const [postsData, setPostsData] = useState([]); // all posts state
+  const [bookmarkPosts, setBookmarkPosts] = useState([]); // bookmark posts of logged in user
+  const [postContent, setPostContent] = useState(""); // to store post msg while adding a new post
+
+  // helper states
+  // this state restricts user from clicking multiple times a button
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [postContent, setPostContent] = useState("");
-
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token"); // login token
 
   // API call for Fetching Posts
   const fetchPosts = async () => {
@@ -30,6 +33,28 @@ export const PostsContext = ({ children }) => {
 
   useEffect(() => {
     fetchPosts();
+  }, []);
+
+  // API call for Fetching Bookmark posts of the logged in user
+  const fetchBookmarkPosts = async () => {
+    try {
+      const result = await axios.get(`/api/users/bookmark`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      if (result.status === 200) {
+        // console.log("api result bookmark posts = ", result);
+        setBookmarkPosts(result.data.bookmarks);
+      }
+    } catch (error) {
+      console.log("err = ", error);
+      error?.response?.data?.errors?.map((e) => ReactToastify(e, "error"));
+    }
+  };
+
+  useEffect(() => {
+    fetchBookmarkPosts();
   }, []);
 
   // API Call for Adding a new Post
@@ -60,6 +85,8 @@ export const PostsContext = ({ children }) => {
           ReactToastify("New Post Added Successfully", "success");
         }
       } catch (e) {
+        console.error(`Error: ${e}`);
+        ReactToastify(`Error: ${e}`, "error");
       } finally {
         setIsSubmitting(false);
       }
@@ -67,12 +94,128 @@ export const PostsContext = ({ children }) => {
   };
 
   // API Call for Liking a Post
+  const LikePost = async (postId) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const result = await axios.post(
+        `/api/posts/like/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      // console.log("liked result = ", result.data.posts);
+      if (result.status === 201) {
+        setPostsData(result.data.posts);
+      }
+    } catch (e) {
+      ReactToastify(`Error: ${e}`, "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // API Call for Disliking a Post
+  const DislikePost = async (postId) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const result = await axios.post(
+        `/api/posts/dislike/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      // console.log("disliked result ", result);
+      if (result.status === 201) {
+        setPostsData(result.data.posts);
+      }
+    } catch (e) {
+      ReactToastify(`Error: ${e}`, "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // API call for adding a post to user bookmarks
+  const BookmarkPost = async (postId) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const result = await axios.post(
+        `/api/users/bookmark/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      // console.log("bookmark post result ", result);
+      if (result.status === 200) {
+        fetchBookmarkPosts();
+        // setBookmarkPosts(result.data.posts);
+      }
+    } catch (e) {
+      ReactToastify(`Error: ${e}`, "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // API call for removing a post from user bookmarks
+  const RemoveBookmarkPost = async (postId) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const result = await axios.post(
+        `/api/users/remove-bookmark/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      // console.log("remove bookmark post result ", result);
+      if (result.status === 200) {
+        fetchBookmarkPosts();
+        // setBookmarkPosts(result.data.posts);
+      }
+    } catch (e) {
+      ReactToastify(`Error: ${e}`, "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <ContextPosts.Provider
-      value={{ postsData, AddPost, postContent, setPostContent }}
+      value={{
+        postsData,
+        AddPost,
+        postContent,
+        setPostContent,
+        LikePost,
+        DislikePost,
+        BookmarkPost,
+        RemoveBookmarkPost,
+        bookmarkPosts,
+      }}
     >
       {children}
     </ContextPosts.Provider>

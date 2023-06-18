@@ -11,8 +11,17 @@ import deven from "../../images/deven.jpg";
 
 export const Home = () => {
   const { usersData } = useContext(ContextUsers);
-  const { postsData, AddPost, postContent, setPostContent } =
-    useContext(ContextPosts);
+  const {
+    postsData,
+    AddPost,
+    postContent,
+    setPostContent,
+    LikePost,
+    DislikePost,
+    BookmarkPost,
+    RemoveBookmarkPost,
+    bookmarkPosts,
+  } = useContext(ContextPosts);
 
   const [usersPosts, setUsersPosts] = useState([]);
   const [sortBy, setSortBy] = useState("latest");
@@ -107,6 +116,9 @@ export const Home = () => {
 
                   <div className="posts-wrapper">
                     {usersPosts?.map((post) => {
+                      {
+                        /* console.log(post); */
+                      }
                       return (
                         <div
                           className="default-section-block posts"
@@ -133,7 +145,22 @@ export const Home = () => {
                             <p className="post-user-content">{post.content}</p>
                             <div className="post-call-to-action-buttons">
                               <div className="post-likes-count">
-                                <i className="fa-regular fa-heart"></i>{" "}
+                                {post.likes.likedBy.find(
+                                  (likedUser) =>
+                                    likedUser.username ===
+                                    JSON.parse(localStorage.getItem("user"))
+                                      .username
+                                ) ? (
+                                  <i
+                                    className="fa-solid fa-heart"
+                                    onClick={() => DislikePost(post._id)}
+                                  ></i>
+                                ) : (
+                                  <i
+                                    className="fa-regular fa-heart"
+                                    onClick={() => LikePost(post._id)}
+                                  ></i>
+                                )}
                                 <p>
                                   {post.likes.likeCount > 0
                                     ? post.likes.likeCount
@@ -142,7 +169,19 @@ export const Home = () => {
                               </div>
                               <i className="fa-regular fa-comment"></i>
                               <i className="fa-solid fa-share-nodes"></i>
-                              <i className="fa-regular fa-bookmark"></i>
+                              {bookmarkPosts.find(
+                                (bookmarkPost) => bookmarkPost._id === post._id
+                              ) ? (
+                                <i
+                                  className="fa-solid fa-bookmark"
+                                  onClick={() => RemoveBookmarkPost(post._id)}
+                                ></i>
+                              ) : (
+                                <i
+                                  className="fa-regular fa-bookmark"
+                                  onClick={() => BookmarkPost(post._id)}
+                                ></i>
+                              )}
                             </div>
                           </div>
                         </div>
