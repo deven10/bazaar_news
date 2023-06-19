@@ -5,9 +5,140 @@ import { ContextUsers } from "../../contexts/UsersContext";
 import { ContextPosts } from "../../contexts/PostsContext";
 import { Navbar } from "../../components/Header/Navbar";
 
+// Three Dots
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
+// MUI Modal
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
 import "./Home.css";
 
 import deven from "../../images/deven.jpg";
+
+// Three Dots
+const ThreeDots = ({ post }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    console.log("post in Three dots = ", post);
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <div className="three-dots home-page">
+        <IconButton
+          className="more-options"
+          aria-label="more"
+          id="long-button"
+          aria-controls={open ? "long-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-haspopup="true"
+          onClick={(event) => handleClick(event)}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          MenuListProps={{
+            "aria-labelledby": "long-button",
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          // PaperProps={{
+          //   style: {
+          //     width: "",
+          //   },
+          // }}
+        >
+          <MenuItem>
+            {/*  onClick={handleClose} */}
+            {/* <button>Delete</button> */}
+            <BasicModal post={post} setAnchorEl={setAnchorEl} />
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <button>Delete</button>
+          </MenuItem>
+        </Menu>
+      </div>
+    </>
+  );
+};
+
+// Post Edit Modal
+const BasicModal = ({ setAnchorEl, post }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const [updatedPost, setUpdatedPost] = useState({});
+
+  const handleOpen = () => {
+    console.log("post in Basic modal = ", post);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setAnchorEl(null);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Edit Post</Button>
+      <Modal
+        open={open}
+        // onClose={() => handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="edit-post-wrapper">
+            <div className="profile-form-group">
+              <p className="form-label">Update Post Content:</p>
+              <input
+                type="text"
+                required
+                // value={newAddress.street}
+                // onChange={(e) => handleChange(e)}
+                id="street"
+              />
+            </div>
+          </div>
+
+          <button onClick={() => handleClose()}>Discard</button>
+          <button
+            onClick={() => {
+              console.log("Saved changes");
+              handleClose();
+            }}
+          >
+            Update
+          </button>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
 
 export const Home = () => {
   const { usersData } = useContext(ContextUsers);
@@ -23,6 +154,7 @@ export const Home = () => {
     bookmarkPosts,
   } = useContext(ContextPosts);
 
+  // For main Home component
   const [usersPosts, setUsersPosts] = useState([]);
   const [sortBy, setSortBy] = useState("latest");
 
@@ -116,9 +248,6 @@ export const Home = () => {
 
                   <div className="posts-wrapper">
                     {usersPosts?.map((post) => {
-                      {
-                        /* console.log(post); */
-                      }
                       return (
                         <div
                           className="default-section-block posts"
@@ -136,7 +265,7 @@ export const Home = () => {
                                 </span>
                               </p>
                               <div className="post-edit-or-delete-options">
-                                ...
+                                <ThreeDots post={post} />
                               </div>
                             </div>
                             <p className="post-user-username">
