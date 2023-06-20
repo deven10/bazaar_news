@@ -236,7 +236,6 @@ export const dislikePostHandler = function (schema, request) {
       (currUser) => currUser.username !== user.username
       //  (currUser) => currUser._id !== user._id  // this is old line
     );
-    // console.log("updatedLikedBy = ", updatedLikedBy);
     post.likes.dislikedBy.push(user);
     post = { ...post, likes: { ...post.likes, likedBy: updatedLikedBy } };
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });

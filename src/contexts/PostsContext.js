@@ -203,6 +203,60 @@ export const PostsContext = ({ children }) => {
     }
   };
 
+  // API Call for Deleting a Post
+  const handleDeletePost = async (postId) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const result = await axios.delete(`/api/posts/${postId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      if (result.status === 201) {
+        setPostsData(result.data.posts);
+        ReactToastify("Post Deleted", "info");
+      }
+    } catch (e) {
+      console.log(e);
+      ReactToastify(`Error: ${e}`, "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // API Call for Editing a Post
+  const handleEditPost = async (updatedPost) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const result = await axios.post(
+        `/api/posts/edit/${updatedPost._id}`,
+        {
+          postData: updatedPost,
+        },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (result.status === 201) {
+        setPostsData(result.data.posts);
+        ReactToastify("Post Updated", "info");
+      }
+    } catch (e) {
+      console.log(e);
+      ReactToastify(`Error: ${e}`, "error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <ContextPosts.Provider
       value={{
@@ -215,6 +269,8 @@ export const PostsContext = ({ children }) => {
         BookmarkPost,
         RemoveBookmarkPost,
         bookmarkPosts,
+        handleDeletePost,
+        handleEditPost,
       }}
     >
       {children}

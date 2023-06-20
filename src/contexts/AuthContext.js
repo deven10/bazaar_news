@@ -15,11 +15,17 @@ export const AuthContext = ({ children }) => {
   });
 
   const [token, setToken] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     const loginToken = localStorage.getItem("token");
     if (loginToken) {
       setToken(loginToken);
+    }
+
+    const user = localStorage.getItem("user");
+    if (user) {
+      setLoggedInUser(JSON.parse(user));
     }
   }, []);
 
@@ -89,7 +95,7 @@ export const AuthContext = ({ children }) => {
 
   return (
     <ContextAuth.Provider
-      value={{ user, setUser, checkUser, loginAsGuest, token }}
+      value={{ user, setUser, checkUser, loginAsGuest, token, loggedInUser }}
     >
       {children}
     </ContextAuth.Provider>

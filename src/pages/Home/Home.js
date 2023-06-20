@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { ContextUsers } from "../../contexts/UsersContext";
 import { ContextPosts } from "../../contexts/PostsContext";
+import { ContextAuth } from "../../contexts/AuthContext";
 import { Navbar } from "../../components/Header/Navbar";
 
 // Three Dots
@@ -14,7 +15,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 // MUI Modal
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
 import "./Home.css";
@@ -23,10 +23,10 @@ import deven from "../../images/deven.jpg";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
+  const { handleDeletePost } = useContext(ContextPosts);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    console.log("post in Three dots = ", post);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -55,19 +55,20 @@ const ThreeDots = ({ post }) => {
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          // PaperProps={{
-          //   style: {
-          //     width: "",
-          //   },
-          // }}
         >
           <MenuItem>
-            {/*  onClick={handleClose} */}
-            {/* <button>Delete</button> */}
             <BasicModal post={post} setAnchorEl={setAnchorEl} />
           </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <button>Delete</button>
+          <MenuItem>
+            <button
+              className="delete-post-button"
+              onClick={() => {
+                handleDeletePost(post._id);
+                handleClose();
+              }}
+            >
+              DELETE
+            </button>
           </MenuItem>
         </Menu>
       </div>
@@ -77,13 +78,14 @@ const ThreeDots = ({ post }) => {
 
 // Post Edit Modal
 const BasicModal = ({ setAnchorEl, post }) => {
+  const { handleEditPost } = useContext(ContextPosts);
   const [open, setOpen] = React.useState(false);
 
   const [updatedPost, setUpdatedPost] = useState({});
 
   const handleOpen = () => {
-    console.log("post in Basic modal = ", post);
     setOpen(true);
+    setUpdatedPost(post);
   };
   const handleClose = () => {
     setOpen(false);
@@ -96,15 +98,26 @@ const BasicModal = ({ setAnchorEl, post }) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 600,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
+    height: 200,
     boxShadow: 24,
     p: 4,
+    bgcolor: "#fff",
+    borderRadius: "10px",
+    padding: "15px 30px",
+  };
+
+  const editPostButtonStyles = {
+    bgcolor: "transparent",
+    color: "#000",
+    fontSize: "14px",
+    fontWeight: "600",
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Edit Post</Button>
+      <Button onClick={handleOpen} sx={editPostButtonStyles}>
+        EDIT
+      </Button>
       <Modal
         open={open}
         // onClose={() => handleClose}
@@ -113,27 +126,39 @@ const BasicModal = ({ setAnchorEl, post }) => {
       >
         <Box sx={style}>
           <div className="edit-post-wrapper">
-            <div className="profile-form-group">
-              <p className="form-label">Update Post Content:</p>
-              <input
-                type="text"
-                required
-                // value={newAddress.street}
-                // onChange={(e) => handleChange(e)}
-                id="street"
-              />
+            <div className="create-a-post-section">
+              <img className="logged-in-user-img" src={deven} alt="deven" />
+              <div className="create-a-post-wrapper">
+                <textarea
+                  className="create-a-post-input"
+                  value={updatedPost.content}
+                  onChange={(e) =>
+                    setUpdatedPost({ ...updatedPost, content: e.target.value })
+                  }
+                ></textarea>
+                <div className="create-a-post-footer-wrapper">
+                  <i className="fa-solid fa-image"></i>
+                  <div className="d-flex">
+                    <button
+                      onClick={() => handleClose()}
+                      className="discard-modal-button mx-2"
+                    >
+                      Discard
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleEditPost(updatedPost);
+                        handleClose();
+                      }}
+                      className="add-new-post-button"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <button onClick={() => handleClose()}>Discard</button>
-          <button
-            onClick={() => {
-              console.log("Saved changes");
-              handleClose();
-            }}
-          >
-            Update
-          </button>
         </Box>
       </Modal>
     </div>
@@ -141,6 +166,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 };
 
 export const Home = () => {
+  const { loggedInUser } = useContext(ContextAuth);
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
@@ -264,9 +290,13 @@ export const Home = () => {
                                   {convertDate(post.createdAt) ?? "---"}
                                 </span>
                               </p>
-                              <div className="post-edit-or-delete-options">
-                                <ThreeDots post={post} />
-                              </div>
+                              {post.username === loggedInUser.username ? (
+                                <div className="post-edit-or-delete-options">
+                                  <ThreeDots post={post} />
+                                </div>
+                              ) : (
+                                ""
+                              )}
                             </div>
                             <p className="post-user-username">
                               @{post.username}
