@@ -223,13 +223,13 @@
   }
 
   /* ------- */
-  .three-dots.home-page .css-78trlr-MuiButtonBase-root-MuiIconButton-root{
-    margin: 0px -15px 0px 0px;
-    padding: 0;
+  .three-dots.home-page .css-78trlr-MuiButtonBase-root-MuiIconButton-root,.three-dots.home-page .css-1yxmbwk{
+    margin: 0px -15px 0px 0px !important;
+    padding: 0 !important;
   }
 
-  .three-dots.home-page .css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover{
-    background-color: transparent;
+  .three-dots.home-page .css-78trlr-MuiButtonBase-root-MuiIconButton-root,.three-dots.home-page .css-1yxmbwk{
+    background-color: transparent !important;
   }
 
   .delete-post-button{
