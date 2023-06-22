@@ -169,16 +169,6 @@ export const likePostHandler = function (schema, request) {
         }
       );
     }
-    const {
-      _id,
-      firstName,
-      lastName,
-      username,
-      createdAt,
-      updatedAt,
-      followers,
-      following,
-    } = user;
     const postId = request.params.postId;
     const post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.likes.likedBy.some((currUser) => currUser._id === user._id)) {
@@ -192,16 +182,7 @@ export const likePostHandler = function (schema, request) {
       (currUser) => currUser._id !== user._id
     );
     post.likes.likeCount += 1;
-    post.likes.likedBy.push({
-      _id,
-      firstName,
-      lastName,
-      username,
-      createdAt,
-      updatedAt,
-      followers,
-      following,
-    });
+    post.likes.likedBy.push(user);
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
@@ -251,10 +232,10 @@ export const dislikePostHandler = function (schema, request) {
       );
     }
     post.likes.likeCount -= 1;
-
-    const updatedLikedBy = post.likes.likedBy.filter((currUser) => {
-      return currUser.adarshbalika !== user.adarshbalika;
-    });
+    const updatedLikedBy = post.likes.likedBy.filter(
+      (currUser) => currUser.username !== user.username
+      //  (currUser) => currUser._id !== user._id  // this is old line
+    );
     post.likes.dislikedBy.push(user);
     post = { ...post, likes: { ...post.likes, likedBy: updatedLikedBy } };
     this.db.posts.update({ _id: postId }, { ...post, updatedAt: formatDate() });

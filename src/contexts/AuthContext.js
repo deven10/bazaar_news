@@ -69,9 +69,7 @@ export const AuthContext = ({ children }) => {
         username: "adarshbalika",
         password: "adarshBalika123",
       };
-
       const result = await axios.post(`/api/auth/login`, data);
-
       if (result.status === 200) {
         localStorage.setItem("token", result.data.encodedToken);
         localStorage.setItem("user", JSON.stringify(result.data.foundUser));

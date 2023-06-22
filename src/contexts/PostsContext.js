@@ -44,7 +44,6 @@ export const PostsContext = ({ children }) => {
         },
       });
       if (result.status === 200) {
-        // console.log("api result bookmark posts = ", result);
         setBookmarkPosts(result.data.bookmarks);
       }
     } catch (error) {
@@ -109,7 +108,6 @@ export const PostsContext = ({ children }) => {
           },
         }
       );
-      // console.log("liked result = ", result.data.posts);
       if (result.status === 201) {
         setPostsData(result.data.posts);
       }
@@ -136,7 +134,6 @@ export const PostsContext = ({ children }) => {
           },
         }
       );
-      // console.log("disliked result ", result);
       if (result.status === 201) {
         setPostsData(result.data.posts);
       }
@@ -163,7 +160,6 @@ export const PostsContext = ({ children }) => {
           },
         }
       );
-      // console.log("bookmark post result ", result);
       if (result.status === 200) {
         fetchBookmarkPosts();
         // setBookmarkPosts(result.data.posts);
@@ -191,7 +187,6 @@ export const PostsContext = ({ children }) => {
           },
         }
       );
-      // console.log("remove bookmark post result ", result);
       if (result.status === 200) {
         fetchBookmarkPosts();
         // setBookmarkPosts(result.data.posts);

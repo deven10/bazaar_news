@@ -132,9 +132,9 @@ const BasicModal = ({ setAnchorEl, post }) => {
                 <textarea
                   className="create-a-post-input"
                   value={updatedPost.content}
-                  onChange={(e) =>
-                    setUpdatedPost({ ...updatedPost, content: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setUpdatedPost({ ...updatedPost, content: e.target.value });
+                  }}
                 ></textarea>
                 <div className="create-a-post-footer-wrapper">
                   <i className="fa-solid fa-image"></i>
@@ -166,7 +166,6 @@ const BasicModal = ({ setAnchorEl, post }) => {
 };
 
 export const Home = () => {
-  const { loggedInUser } = useContext(ContextAuth);
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
@@ -179,6 +178,8 @@ export const Home = () => {
     RemoveBookmarkPost,
     bookmarkPosts,
   } = useContext(ContextPosts);
+
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
   // For main Home component
   const [usersPosts, setUsersPosts] = useState([]);
@@ -211,11 +212,13 @@ export const Home = () => {
 
   // helper function to convert the date
   const convertDate = (inputDate) => {
-    const date = new Date(inputDate);
-    const options = { month: "short", day: "numeric", year: "numeric" };
-    const formattedDate = date.toLocaleString("en-US", options);
+    if (inputDate) {
+      const date = new Date(inputDate);
+      const options = { month: "short", day: "numeric", year: "numeric" };
+      const formattedDate = date.toLocaleString("en-US", options);
 
-    return formattedDate;
+      return formattedDate;
+    }
   };
 
   return (
@@ -290,7 +293,7 @@ export const Home = () => {
                                   {convertDate(post.createdAt) ?? "---"}
                                 </span>
                               </p>
-                              {post.username === loggedInUser.username ? (
+                              {post.username === loggedInUser?.username ? (
                                 <div className="post-edit-or-delete-options">
                                   <ThreeDots post={post} />
                                 </div>
