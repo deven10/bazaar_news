@@ -9,6 +9,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./Navbar.css";
 
 export const ThreeDots = () => {
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,7 +55,10 @@ export const ThreeDots = () => {
           // }}
         >
           <MenuItem onClick={handleClose}>
-            <Link className="profile-link" to="/profile">
+            <Link
+              className="profile-link"
+              to={`/user/${loggedInUser.username}`}
+            >
               Profile
             </Link>
           </MenuItem>
@@ -75,7 +79,9 @@ export const Navbar = () => {
 
   return (
     <div className="d-flex ai-center navbar">
-      <div className="logo">Bazaar New's 📰</div>
+      <Link className="logo" to="/home">
+        Bazaar New's 📰
+      </Link>
       <div className="profile">
         <div className="theme-toggler">
           <label className="ui-switch">

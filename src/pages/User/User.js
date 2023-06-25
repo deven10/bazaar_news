@@ -21,6 +21,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 import deven from "../../images/deven.jpg";
+import "./User.css";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
@@ -179,13 +180,18 @@ export const User = () => {
 
   const { userName } = useParams();
   const [userPosts, setUserPosts] = useState([]);
+  const [userDetails, setUserDetails] = useState({});
+
+  useEffect(() => {
+    const user = usersData.find((user) => user.username === userName);
+    setUserDetails(user);
+  }, [usersData]);
 
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
   const fetchUser = async () => {
     try {
       const result = await axios.get(`/api/posts/user/${userName}`);
-      console.log("user result = ", result);
       if (result.status === 200) {
         setUserPosts(result.data.posts);
       } else {
@@ -207,7 +213,6 @@ export const User = () => {
       const date = new Date(inputDate);
       const options = { month: "short", day: "numeric", year: "numeric" };
       const formattedDate = date.toLocaleString("en-US", options);
-
       return formattedDate;
     }
   };
@@ -225,89 +230,118 @@ export const User = () => {
             {/* Users Posts sections (middle one) */}
             <div className="col-md-5">
               <div className="users-post-section-wrapper">
-                <div className="users-posts-section">
-                  <div className="posts-wrapper">
-                    {userPosts?.map((post) => {
-                      return (
-                        <div
-                          className="default-section-block posts"
-                          key={post._id}
-                        >
-                          <div className="post-user-img">
-                            <img src={deven} alt="deven" />
-                          </div>
-                          <div className="post-details">
-                            <div className="post-user-created-date">
-                              <p className="post-user-date">
-                                {post.firstName} {post.lastName} ·{" "}
-                                <span>
-                                  {convertDate(post.createdAt) ?? "---"}
-                                </span>
-                              </p>
-                              {post.username === loggedInUser?.username ? (
-                                <div className="post-edit-or-delete-options">
-                                  <ThreeDots post={post} />
-                                </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                            <div className="post-user-username">
-                              @{post.username}
-                            </div>
-                            <p className="post-user-content">
-                              <Link
-                                className="post-link"
-                                to={`/post/${post._id}`}
-                              >
-                                {post.content}
-                              </Link>
+                <div className="default-section-block logged-in-user-details">
+                  <img className="logged-in-user-img" src={deven} alt="deven" />
+                  <div className="user-profile-details">
+                    <div className="logged-in-user-name">
+                      <p>
+                        {userDetails?.firstName} {userDetails?.lastName}
+                      </p>
+                      <div className="user-action-buttons">
+                        <button className="add-new-post-button">
+                          Edit Profile
+                        </button>
+                        <i className="fa-solid fa-right-from-bracket logout-icon"></i>
+                      </div>
+                    </div>
+                    <p className="username">@{userDetails?.username}</p>
+                    <p className="user-bio">{userDetails?.bio}</p>
+                    <p className="website">{userDetails?.website}</p>
+                    <div className="logged-in-user-info">
+                      <p>
+                        {
+                          postsData.filter(
+                            (post) => post.username === userDetails?.username
+                          ).length
+                        }{" "}
+                        Posts
+                      </p>
+                      <p>{userDetails?.followers?.length} Followers</p>
+                      <p>{userDetails?.following?.length} Following</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="posts-wrapper">
+                  {userPosts?.map((post) => {
+                    return (
+                      <div
+                        className="default-section-block posts"
+                        key={post._id}
+                      >
+                        <div className="post-user-img">
+                          <img src={deven} alt="deven" />
+                        </div>
+                        <div className="post-details">
+                          <div className="post-user-created-date">
+                            <p className="post-user-date">
+                              {post.firstName} {post.lastName} ·{" "}
+                              <span>
+                                {convertDate(post.createdAt) ?? "---"}
+                              </span>
                             </p>
-                            <div className="post-call-to-action-buttons">
-                              <div className="post-likes-count">
-                                {post.likes.likedBy.find(
-                                  (likedUser) =>
-                                    likedUser.username ===
-                                    JSON.parse(localStorage.getItem("user"))
-                                      .username
-                                ) ? (
-                                  <i
-                                    className="fa-solid fa-heart"
-                                    onClick={() => DislikePost(post._id)}
-                                  ></i>
-                                ) : (
-                                  <i
-                                    className="fa-regular fa-heart"
-                                    onClick={() => LikePost(post._id)}
-                                  ></i>
-                                )}
-                                <p>
-                                  {post.likes.likeCount > 0
-                                    ? post.likes.likeCount
-                                    : ""}
-                                </p>
+                            {post.username === loggedInUser?.username ? (
+                              <div className="post-edit-or-delete-options">
+                                <ThreeDots post={post} />
                               </div>
-                              <i className="fa-regular fa-comment"></i>
-                              <i className="fa-solid fa-share-nodes"></i>
-                              {bookmarkPosts.find(
-                                (bookmarkPost) => bookmarkPost._id === post._id
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                          <div className="post-user-username">
+                            @{post.username}
+                          </div>
+                          <p className="post-user-content">
+                            <Link
+                              className="post-link"
+                              to={`/post/${post._id}`}
+                            >
+                              {post.content}
+                            </Link>
+                          </p>
+                          <div className="post-call-to-action-buttons">
+                            <div className="post-likes-count">
+                              {post.likes.likedBy.find(
+                                (likedUser) =>
+                                  likedUser.username ===
+                                  JSON.parse(localStorage.getItem("user"))
+                                    .username
                               ) ? (
                                 <i
-                                  className="fa-solid fa-bookmark"
-                                  onClick={() => RemoveBookmarkPost(post._id)}
+                                  className="fa-solid fa-heart"
+                                  onClick={() => DislikePost(post._id)}
                                 ></i>
                               ) : (
                                 <i
-                                  className="fa-regular fa-bookmark"
-                                  onClick={() => BookmarkPost(post._id)}
+                                  className="fa-regular fa-heart"
+                                  onClick={() => LikePost(post._id)}
                                 ></i>
                               )}
+                              <p>
+                                {post.likes.likeCount > 0
+                                  ? post.likes.likeCount
+                                  : ""}
+                              </p>
                             </div>
+                            <i className="fa-regular fa-comment"></i>
+                            <i className="fa-solid fa-share-nodes"></i>
+                            {bookmarkPosts.find(
+                              (bookmarkPost) => bookmarkPost._id === post._id
+                            ) ? (
+                              <i
+                                className="fa-solid fa-bookmark"
+                                onClick={() => RemoveBookmarkPost(post._id)}
+                              ></i>
+                            ) : (
+                              <i
+                                className="fa-regular fa-bookmark"
+                                onClick={() => BookmarkPost(post._id)}
+                              ></i>
+                            )}
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
