@@ -11,6 +11,7 @@ import { TokenRoutes } from "./components/private-routes/TokenRoutes";
 import { Bookmark } from "./pages/Bookmark/Bookmark";
 import { Explore } from "./pages/Explore/Explore";
 import { SinglePost } from "./pages/SinglePost/SinglePost";
+import { User } from "./pages/User/User";
 
 import "./styling/common/Common.css";
 import "animate.css";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/explore" element={<Explore />} />
           <Route path="/bookmark" element={<Bookmark />} />
           <Route path="/post/:postId" element={<SinglePost />} />
+          <Route path="/user/:userName" element={<User />} />
         </Route>
       </Routes>
       <ToastContainer />

@@ -181,11 +181,8 @@ export const SinglePost = () => {
   const [particularPost, setParticularPost] = useState({});
 
   useEffect(() => {
-    // if (postsData.length > 0) {
     const temp = postsData.find((post) => post._id === postId);
-    //   console.log(temp);
     setParticularPost(temp);
-    // }
   }, [postsData]);
 
   // helper function to convert the date
