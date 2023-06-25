@@ -172,23 +172,22 @@ export const Bookmark = () => {
     bookmarkPosts,
   } = useContext(ContextPosts);
 
+  const [onlyBookmarkedPosts, setOnlyBookmarkedPosts] = useState([]);
+
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    console.log("bookmarkPosts in bookmarks page = ", bookmarkPosts);
-    // console.log("all posts = ", postsData);
+    let filterArr = [];
+    for (let i = 0; i < bookmarkPosts.length; i++) {
+      for (let j = 0; j < postsData.length; j++) {
+        if (bookmarkPosts[i]._id === postsData[j]._id) {
+          filterArr.push({ ...postsData[j] });
+        }
+      }
+    }
 
-    // let filterArr = [];
-    // for (let i = 0; i < postsData.length; i++) {
-    //   for (let j = 0; j < bookmarkPosts.length; j++) {
-    //     if (postsData[i]._id === bookmarkPosts[j]) {
-    //       filterArr.push(postsData[i]);
-    //   }
-    //   console.log(postsData[i]);
-    // }
-
-    // const newArr = bookmarkPosts.map(({_id}) => )
-  }, [bookmarkPosts]);
+    setOnlyBookmarkedPosts(() => filterArr);
+  }, [bookmarkPosts, postsData]);
 
   // helper function to convert the date
   const convertDate = (inputDate) => {
@@ -216,8 +215,8 @@ export const Bookmark = () => {
               <div className="users-post-section-wrapper">
                 <div className="users-posts-section">
                   <div className="posts-wrapper">
-                    {bookmarkPosts?.length > 0 ? (
-                      bookmarkPosts?.map((post) => {
+                    {onlyBookmarkedPosts?.length > 0 ? (
+                      onlyBookmarkedPosts?.map((post) => {
                         return (
                           <div
                             className="default-section-block posts"
@@ -250,20 +249,20 @@ export const Bookmark = () => {
                               </p>
                               <div className="post-call-to-action-buttons">
                                 <div className="post-likes-count">
-                                  {post?.likes?.likedBy?.find(
+                                  {post.likes.likedBy.find(
                                     (likedUser) =>
-                                      likedUser?.username ===
+                                      likedUser.username ===
                                       JSON.parse(localStorage.getItem("user"))
                                         .username
                                   ) ? (
                                     <i
                                       className="fa-solid fa-heart"
-                                      onClick={() => DislikePost(post?._id)}
+                                      onClick={() => DislikePost(post._id)}
                                     ></i>
                                   ) : (
                                     <i
                                       className="fa-regular fa-heart"
-                                      onClick={() => LikePost(post?._id)}
+                                      onClick={() => LikePost(post._id)}
                                     ></i>
                                   )}
                                   <p>
@@ -295,7 +294,8 @@ export const Bookmark = () => {
                       })
                     ) : (
                       <div className="default-section-block posts">
-                        <p className="m-0">No Data Found</p>
+                        <p className="m-0 text">No Bookmarks Found</p>
+                        ¯\_(ツ)_/¯
                       </div>
                     )}
                   </div>

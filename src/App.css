@@ -29,3 +29,11 @@ font-family: 'Satisfy', cursive;
 .default-page-margin{
   padding: 25px 0px;
 }
+
+.text{
+  margin: 0;
+  font-size: 16px; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  word-break: break-word;
+}
