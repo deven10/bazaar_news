@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { ContextUsers } from "../../contexts/UsersContext";
@@ -304,7 +305,14 @@ export const Home = () => {
                             <p className="post-user-username">
                               @{post.username}
                             </p>
-                            <p className="post-user-content">{post.content}</p>
+                            <p className="post-user-content">
+                              <Link
+                                className="post-link"
+                                to={`/post/${post._id}`}
+                              >
+                                {post.content}
+                              </Link>
+                            </p>
                             <div className="post-call-to-action-buttons">
                               <div className="post-likes-count">
                                 {post.likes.likedBy.find(

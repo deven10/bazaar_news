@@ -10,6 +10,7 @@ import { Home } from "./pages/Home/Home";
 import { TokenRoutes } from "./components/private-routes/TokenRoutes";
 import { Bookmark } from "./pages/Bookmark/Bookmark";
 import { Explore } from "./pages/Explore/Explore";
+import { SinglePost } from "./pages/SinglePost/SinglePost";
 
 import "./styling/common/Common.css";
 import "animate.css";
@@ -27,6 +28,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/bookmark" element={<Bookmark />} />
+          <Route path="/post/:postId" element={<SinglePost />} />
         </Route>
       </Routes>
       <ToastContainer />

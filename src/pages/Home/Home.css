@@ -170,6 +170,12 @@
     word-break: break-word;
   }
 
+  .post-link{
+    color: #111;
+    text-decoration: none;
+    list-style: none;
+  }
+
   .post-call-to-action-buttons{
     display: flex;
     align-items: center; 
