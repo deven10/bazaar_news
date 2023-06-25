@@ -38,13 +38,13 @@ export const QuickLinks = () => {
           </span>
           Home
         </Link>
-        <Link className="link">
+        <Link className="link" to="/explore">
           <span>
             <i className="fa-solid fa-compass"></i>
           </span>
           Explore
         </Link>
-        <Link className="link">
+        <Link className="link" to="/bookmark">
           <span>
             <i className="fa-solid fa-bookmark"></i>
           </span>

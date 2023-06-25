@@ -1,9 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
-
-import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
-import { ContextUsers } from "../../contexts/UsersContext";
-import { ContextPosts } from "../../contexts/PostsContext";
+import React, { useState, useEffect, useContext } from "react";
 import { Navbar } from "../../components/Header/Navbar";
+import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
 
 // Three Dots
@@ -17,9 +14,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
-import "./Home.css";
-
 import deven from "../../images/deven.jpg";
+import { ContextPosts } from "../../contexts/PostsContext";
+import { ContextUsers } from "../../contexts/UsersContext";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
@@ -165,13 +162,10 @@ const BasicModal = ({ setAnchorEl, post }) => {
   );
 };
 
-export const Home = () => {
+export const Explore = () => {
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
-    AddPost,
-    postContent,
-    setPostContent,
     LikePost,
     DislikePost,
     BookmarkPost,
@@ -183,31 +177,9 @@ export const Home = () => {
 
   // For main Home component
   const [usersPosts, setUsersPosts] = useState([]);
-  const [sortBy, setSortBy] = useState("latest");
-
-  // sort functionality
-  const sortByFunction = (type) => {
-    if (type === "trending") {
-      const sortByLikes = (data) => {
-        return data.sort((a, b) => b?.likes?.likeCount - a?.likes?.likeCount);
-      };
-      const mostLiked = sortByLikes(postsData);
-      setUsersPosts(mostLiked);
-      setSortBy("trending");
-    } else {
-      const sortByCreatedAtDesc = (data) => {
-        return data?.sort(
-          (a, b) => new Date(b?.createdAt) - new Date(a?.createdAt)
-        );
-      };
-      const latestData = sortByCreatedAtDesc(postsData);
-      setUsersPosts(latestData);
-      setSortBy("latest");
-    }
-  };
 
   useEffect(() => {
-    sortByFunction("latest");
+    setUsersPosts(postsData);
   }, [postsData]);
 
   // helper function to convert the date
@@ -234,47 +206,7 @@ export const Home = () => {
             {/* Users Posts sections (middle one) */}
             <div className="col-md-5">
               <div className="users-post-section-wrapper">
-                <div className="default-section-block create-a-post-section">
-                  <img className="logged-in-user-img" src={deven} alt="deven" />
-                  <div className="create-a-post-wrapper">
-                    <textarea
-                      className="create-a-post-input"
-                      placeholder="What's happening?"
-                      value={postContent}
-                      onChange={(e) => setPostContent(e.target.value)}
-                    ></textarea>
-                    <div className="create-a-post-footer-wrapper">
-                      <i className="fa-solid fa-image"></i>
-                      <button
-                        onClick={() => AddPost(postContent)}
-                        className="add-new-post-button"
-                      >
-                        Post
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
                 <div className="users-posts-section">
-                  <div className="default-section-block filters-wrapper">
-                    <p
-                      style={{
-                        fontWeight: `${sortBy === "latest" ? "700" : "400"}`,
-                      }}
-                      onClick={() => sortByFunction("latest")}
-                    >
-                      Latest Posts
-                    </p>
-                    <p
-                      style={{
-                        fontWeight: `${sortBy === "trending" ? "700" : "400"}`,
-                      }}
-                      onClick={() => sortByFunction("trending")}
-                    >
-                      Trending Posts
-                    </p>
-                  </div>
-
                   <div className="posts-wrapper">
                     {usersPosts?.map((post) => {
                       return (

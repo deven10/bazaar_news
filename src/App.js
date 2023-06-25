@@ -8,6 +8,8 @@ import { Register } from "./pages/Register/Register";
 import { LandingPage } from "./pages/Landing Page/LandingPage";
 import { Home } from "./pages/Home/Home";
 import { TokenRoutes } from "./components/private-routes/TokenRoutes";
+import { Bookmark } from "./pages/Bookmark/Bookmark";
+import { Explore } from "./pages/Explore/Explore";
 
 import "./styling/common/Common.css";
 import "animate.css";
@@ -23,6 +25,8 @@ function App() {
 
         <Route element={<TokenRoutes />}>
           <Route path="/home" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/bookmark" element={<Bookmark />} />
         </Route>
       </Routes>
       <ToastContainer />

@@ -47,7 +47,6 @@ export const PostsContext = ({ children }) => {
         setBookmarkPosts(result.data.bookmarks);
       }
     } catch (error) {
-      console.log("err = ", error);
       error?.response?.data?.errors?.map((e) => ReactToastify(e, "error"));
     }
   };
@@ -160,6 +159,7 @@ export const PostsContext = ({ children }) => {
           },
         }
       );
+      console.log("add bookmark = ", result);
       if (result.status === 200) {
         fetchBookmarkPosts();
         // setBookmarkPosts(result.data.posts);
@@ -192,6 +192,7 @@ export const PostsContext = ({ children }) => {
         // setBookmarkPosts(result.data.posts);
       }
     } catch (e) {
+      console.log(e);
       ReactToastify(`Error: ${e}`, "error");
     } finally {
       setIsSubmitting(false);
