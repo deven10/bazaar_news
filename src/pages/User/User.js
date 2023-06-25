@@ -170,9 +170,6 @@ export const User = () => {
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
-    AddPost,
-    postContent,
-    setPostContent,
     LikePost,
     DislikePost,
     BookmarkPost,
