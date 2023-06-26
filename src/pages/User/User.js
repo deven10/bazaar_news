@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { ContextUsers } from "../../contexts/UsersContext";
@@ -168,6 +168,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 };
 
 export const User = () => {
+  const navigate = useNavigate();
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
@@ -238,15 +239,35 @@ export const User = () => {
                         {userDetails?.firstName} {userDetails?.lastName}
                       </p>
                       <div className="user-action-buttons">
-                        <button className="add-new-post-button">
-                          Edit Profile
-                        </button>
-                        <i className="fa-solid fa-right-from-bracket logout-icon"></i>
+                        {loggedInUser?.username === userDetails?.username ? (
+                          <>
+                            <button className="add-new-post-button">
+                              Edit Profile
+                            </button>
+                            <i
+                              onClick={() => {
+                                localStorage.clear();
+                                navigate("/");
+                              }}
+                              className="fa-solid fa-right-from-bracket logout-icon"
+                            ></i>
+                          </>
+                        ) : (
+                          <button className="add-new-post-button">
+                            Follow
+                          </button>
+                        )}
                       </div>
                     </div>
                     <p className="username">@{userDetails?.username}</p>
                     <p className="user-bio">{userDetails?.bio}</p>
-                    <p className="website">{userDetails?.website}</p>
+                    <Link
+                      to={`${userDetails?.website}`}
+                      target="_blank"
+                      className="website"
+                    >
+                      {userDetails?.website}
+                    </Link>
                     <div className="logged-in-user-info">
                       <p>
                         {

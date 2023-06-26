@@ -57,7 +57,7 @@ export const ThreeDots = () => {
           <MenuItem onClick={handleClose}>
             <Link
               className="profile-link"
-              to={`/user/${loggedInUser.username}`}
+              to={`/user/${loggedInUser?.username}`}
             >
               Profile
             </Link>

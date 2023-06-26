@@ -14,6 +14,8 @@ export const users = [
     password: "adarshBalika123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    bio: "I am Groot 😉",
+    website: "https://linktr.ee/umraniadeven",
   },
   {
     _id: uuid(),
@@ -23,6 +25,8 @@ export const users = [
     password: "tanayPratap",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    bio: "Ex Microsoft, Mentor, Teacher, Entrepreneur",
+    website: "https://neog.camp/",
   },
   {
     _id: uuid(),
@@ -32,6 +36,8 @@ export const users = [
     password: "shubhamsoni",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    bio: "Eat, Sleep, Code, Repeat",
+    website: "https://github.com/deven10",
   },
   {
     _id: uuid(),
@@ -41,6 +47,8 @@ export const users = [
     password: "brucewayne",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    bio: "I'm Batman 🦇",
+    website: "https://www.linkedin.com/in/umraniadeven/",
   },
   {
     _id: uuid(),
@@ -50,5 +58,7 @@ export const users = [
     password: "johnwick",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    bio: "Wanna Play Football ⚽?",
+    website: "https://deven-portfolio.netlify.app/",
   },
 ];

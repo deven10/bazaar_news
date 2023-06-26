@@ -59,6 +59,12 @@
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
+    text-decoration: none;
+    color: rgb(70, 119, 223);
+}
+
+.website:hover{
+    text-decoration: underline;
 }
 
 .logged-in-user-info{
