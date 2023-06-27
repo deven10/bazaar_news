@@ -159,7 +159,6 @@ export const PostsContext = ({ children }) => {
           },
         }
       );
-      console.log("add bookmark = ", result);
       if (result.status === 200) {
         fetchBookmarkPosts();
         // setBookmarkPosts(result.data.posts);
@@ -189,7 +188,6 @@ export const PostsContext = ({ children }) => {
       );
       if (result.status === 200) {
         fetchBookmarkPosts();
-        // setBookmarkPosts(result.data.posts);
       }
     } catch (e) {
       console.log(e);

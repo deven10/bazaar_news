@@ -167,6 +167,130 @@ const BasicModal = ({ setAnchorEl, post }) => {
   );
 };
 
+// Edit Profile Modal
+const ProfileModal = ({ userDetails }) => {
+  const [open, setOpen] = React.useState(false);
+  const [updatedUserDetails, setUpdatedUserDetails] = useState(userDetails);
+  const { fetchUsers } = useContext(ContextUsers);
+
+  const token = localStorage.getItem("token"); // login token
+
+  // API Call for Editing a Post
+  const handleEditProfile = async (updatedProfile) => {
+    try {
+      const result = await axios.post(
+        `/api/users/edit`,
+        {
+          userData: updatedProfile,
+        },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (result.status === 201) {
+        fetchUsers();
+        ReactToastify("Profile Updated", "info");
+      }
+    } catch (e) {
+      console.log(e);
+      ReactToastify(`Error: ${e}`, "error");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedUserDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    height: 200,
+    boxShadow: 24,
+    p: 4,
+    bgcolor: "#fff",
+    borderRadius: "10px",
+    padding: "15px 30px",
+  };
+
+  const editPostButtonStyles = {
+    bgcolor: "transparent",
+    color: "#000",
+    fontSize: "14px",
+    fontWeight: "600",
+  };
+
+  return (
+    <div>
+      {/* <Button >EDIT</Button> */}
+      <button
+        onClick={handleOpen}
+        sx={editPostButtonStyles}
+        className="add-new-post-button"
+      >
+        Edit Profile
+      </button>
+      <Modal
+        open={open}
+        // onClose={() => handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="edit-post-wrapper">
+            <div className="create-a-post-section">
+              <img className="logged-in-user-img" src={deven} alt="deven" />
+              <div className="create-a-post-wrapper">
+                <input
+                  type="text"
+                  name="bio"
+                  value={updatedUserDetails?.bio}
+                  onChange={(e) => handleChange(e)}
+                />
+                <input
+                  type="text"
+                  name="website"
+                  value={updatedUserDetails?.website}
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="d-flex">
+                  <button
+                    onClick={() => handleClose()}
+                    className="discard-modal-button mx-2"
+                  >
+                    Discard
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleEditProfile(updatedUserDetails);
+                      handleClose();
+                    }}
+                    className="add-new-post-button"
+                  >
+                    Update
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
+
 export const User = () => {
   const navigate = useNavigate();
   const { usersData } = useContext(ContextUsers);
@@ -241,9 +365,7 @@ export const User = () => {
                       <div className="user-action-buttons">
                         {loggedInUser?.username === userDetails?.username ? (
                           <>
-                            <button className="add-new-post-button">
-                              Edit Profile
-                            </button>
+                            <ProfileModal userDetails={userDetails} />
                             <i
                               onClick={() => {
                                 localStorage.clear();

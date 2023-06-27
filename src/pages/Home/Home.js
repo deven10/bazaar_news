@@ -180,7 +180,7 @@ export const Home = () => {
     bookmarkPosts,
   } = useContext(ContextPosts);
 
-  const loggedInUser = JSON.parse(localStorage.getItem("user"));
+  const loggedInUser = JSON.parse(localStorage?.getItem("user"));
 
   // For main Home component
   const [usersPosts, setUsersPosts] = useState([]);
