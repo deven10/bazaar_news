@@ -256,12 +256,14 @@ const ProfileModal = ({ userDetails }) => {
                 <input
                   type="text"
                   name="bio"
+                  placeholder="Enter your bio..."
                   value={updatedUserDetails?.bio}
                   onChange={(e) => handleChange(e)}
                 />
                 <input
                   type="text"
                   name="website"
+                  placeholder="Enter your website..."
                   value={updatedUserDetails?.website}
                   onChange={(e) => handleChange(e)}
                 />
@@ -310,7 +312,7 @@ export const User = () => {
   useEffect(() => {
     const user = usersData.find((user) => user.username === userName);
     setUserDetails(user);
-  }, [usersData]);
+  }, [usersData, userName]);
 
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
@@ -330,7 +332,7 @@ export const User = () => {
 
   useEffect(() => {
     fetchUser();
-  }, [postsData]);
+  }, [postsData, userName]);
 
   // helper function to convert the date
   const convertDate = (inputDate) => {

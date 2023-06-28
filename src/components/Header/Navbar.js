@@ -74,7 +74,6 @@ export const ThreeDots = () => {
 };
 
 export const Navbar = () => {
-  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   return (
