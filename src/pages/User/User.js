@@ -295,7 +295,7 @@ const ProfileModal = ({ userDetails }) => {
 
 export const User = () => {
   const navigate = useNavigate();
-  const { usersData } = useContext(ContextUsers);
+  const { usersData, followUser, unfollowUser } = useContext(ContextUsers);
   const {
     postsData,
     LikePost,
@@ -316,7 +316,7 @@ export const User = () => {
 
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
-  const fetchUser = async () => {
+  const fetchUserPosts = async () => {
     try {
       const result = await axios.get(`/api/posts/user/${userName}`);
       if (result.status === 200) {
@@ -331,7 +331,7 @@ export const User = () => {
   };
 
   useEffect(() => {
-    fetchUser();
+    fetchUserPosts();
   }, [postsData, userName]);
 
   // helper function to convert the date
@@ -376,8 +376,25 @@ export const User = () => {
                               className="fa-solid fa-right-from-bracket logout-icon"
                             ></i>
                           </>
+                        ) : usersData
+                            ?.find(
+                              (user) => user.username === loggedInUser?.username
+                            )
+                            ?.following?.find(
+                              (followingUser) =>
+                                followingUser.username === userDetails?.username
+                            ) ? (
+                          <button
+                            onClick={() => unfollowUser(userDetails._id)}
+                            className="add-new-post-button"
+                          >
+                            Unfollow
+                          </button>
                         ) : (
-                          <button className="add-new-post-button">
+                          <button
+                            onClick={() => followUser(userDetails._id)}
+                            className="add-new-post-button"
+                          >
                             Follow
                           </button>
                         )}

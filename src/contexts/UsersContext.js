@@ -64,13 +64,18 @@ export const UsersContext = ({ children }) => {
     }
     setIsSubmitting(true);
     try {
-      const result = await axios.get(`/api/users/unfollow/${userId}`);
-      console.log("unfollow user result = ", result);
-      // if (result.status === 200) {
-      //   setUsersData(result.data.users);
-      // } else {
-      //   setUsersData([]);
-      // }
+      const result = await axios.post(
+        `/api/users/unfollow/${userId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (result.status === 200) {
+        fetchUsers();
+      }
     } catch (error) {
       console.log("err = ", error);
       error?.response?.data?.errors?.map((e) => ReactToastify(e, "error"));
