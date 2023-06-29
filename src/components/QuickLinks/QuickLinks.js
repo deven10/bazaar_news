@@ -36,22 +36,21 @@ export const QuickLinks = () => {
           <span>
             <i className="fa-solid fa-house"></i>
           </span>
-          Home
+          <span className="quick-link">Home</span>
         </Link>
         <Link className="link" to="/explore">
           <span>
             <i className="fa-solid fa-compass"></i>
           </span>
-          Explore
+          <span className="quick-link">Explore</span>
         </Link>
         <Link className="link" to="/bookmark">
           <span>
             <i className="fa-solid fa-bookmark"></i>
           </span>
-          Bookmark
+          <span className="quick-link">Bookmark</span>
         </Link>
       </div>
-      {/* <AddPostButton /> */}
     </div>
   );
 };

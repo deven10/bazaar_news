@@ -152,24 +152,12 @@
     font-size: 18px;
 }
 
-/* ------------- */
-@media (min-width: 320px) and (max-width: 374px){
-    .form{
-        width: 96%;
-        padding: 25px 15px;
-    }
+button.Toastify__close-button.Toastify__close-button--dark{
+    display: none;
 }
 
-@media (min-width: 375px) and (max-width: 425px){
-    .form{
-        width: 90%;
-        padding: 25px 30px;
-    }
-}
-
-@media (min-width: 426px) and (max-width: 1024px){
-    .form{
-        width: 60%;
-        padding: 25px 30px;
-    }
+.Toastify__toast-theme--dark{
+    right: -30px;
+    border-top-left-radius: 50px !important;
+    border-bottom-left-radius: 50px !important;
 }

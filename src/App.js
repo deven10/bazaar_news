@@ -14,6 +14,7 @@ import { SinglePost } from "./pages/SinglePost/SinglePost";
 import { User } from "./pages/User/User";
 
 import "./styling/common/Common.css";
+import "./styling/common/Responsive.css";
 import "animate.css";
 import "react-toastify/dist/ReactToastify.css";
 

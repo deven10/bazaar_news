@@ -1,0 +1,94 @@
+/* ------------- */
+@media (min-width: 320px) and (max-width: 374px){
+    .form{
+        width: 96%;
+        padding: 25px 15px;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 425px){
+    .form{
+        width: 90%;
+        padding: 25px 30px;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 1024px){
+    .form{
+        width: 60%;
+        padding: 25px 30px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .suggested-users-img {
+        width: 40px;
+        height: 40px;
+    }
+    .individual-user .name {
+        font-size: 14px;
+    }
+    .individual-user .username {
+        font-size: 13px;
+    }
+    .follow-button {
+        padding: 5px 7px;
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+    .quick-link{
+        display: none;
+        width: max-content;
+    }
+
+    .links-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .quick-links-container{
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .default-section-block{
+        padding: 10px 20px
+    }
+
+    .suggested-users-img {
+        width: 40px;
+        height: 40px;
+    }
+    .individual-user .name {
+        font-size: 15px;
+    }
+    .individual-user .username, .post-user-username {
+        font-size: 13px;
+    }
+    .follow-button, .add-new-post-button, .discard-modal-button {
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+    .search-box, .post-likes-count p{
+        font-size: 16px;
+    }
+    .logged-in-user-img, .post-user-img img{
+        height: 50px;
+        width: 50px;
+    }
+    .create-a-post-input, .filters-wrapper p, .post-user-date, .post-user-date span{
+        font-size: 15px;
+    }
+    .create-a-post-footer-wrapper i{
+        font-size: 22px;   
+    }
+    .post-user-content{
+        font-size: 14px;
+    }
+    .post-call-to-action-buttons i{
+        font-size: 18px;
+    }
+}

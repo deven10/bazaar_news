@@ -21,6 +21,7 @@ import Modal from "@mui/material/Modal";
 import "./Home.css";
 
 import deven from "../../images/deven.jpg";
+import { ReactToastify } from "../../utility/ReactToastify";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
@@ -222,6 +223,12 @@ export const Home = () => {
     }
   };
 
+  const sharePostURL = (url) => {
+    navigator.clipboard
+      .writeText(url)
+      .then(() => ReactToastify("URL Copied", "info"));
+  };
+
   return (
     <div>
       <Navbar />
@@ -229,11 +236,11 @@ export const Home = () => {
         <div className="container">
           <div className="row">
             {/* Quick Links section (left one) */}
-            <div className="col-md-3">
+            <div className="col-md-3 quick-links-container">
               <QuickLinks />
             </div>
             {/* Users Posts sections (middle one) */}
-            <div className="col-md-5">
+            <div className="col-lg-5 col-md-7">
               <div className="users-post-section-wrapper">
                 <div className="default-section-block create-a-post-section">
                   <img className="logged-in-user-img" src={deven} alt="deven" />
@@ -344,7 +351,12 @@ export const Home = () => {
                                 </p>
                               </div>
                               <i className="fa-regular fa-comment"></i>
-                              <i className="fa-solid fa-share-nodes"></i>
+                              <i
+                                onClick={() =>
+                                  sharePostURL(`/api/post/${post._id}`)
+                                }
+                                className="fa-solid fa-share-nodes"
+                              ></i>
                               {bookmarkPosts.find(
                                 (bookmarkPost) => bookmarkPost._id === post._id
                               ) ? (
@@ -368,7 +380,7 @@ export const Home = () => {
               </div>
             </div>
             {/* Search box & suggested users (right one) */}
-            <div className="col-md-4">
+            <div className="col-lg-4 col-md-5">
               <SuggestedUsers usersData={usersData} />
             </div>
           </div>

@@ -5,7 +5,7 @@ export const ReactToastify = (msg, type) => {
     position: "bottom-right",
     transition: Slide,
     autoClose: 3000,
-    hideProgressBar: true,
+    hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
