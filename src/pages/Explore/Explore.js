@@ -215,7 +215,7 @@ export const Explore = () => {
                           key={post._id}
                         >
                           <div className="post-user-img">
-                            <img src={deven} alt="deven" />
+                            <img src={post?.avatar} alt={post.username} />
                           </div>
                           <div className="post-details">
                             <div className="post-user-created-date">

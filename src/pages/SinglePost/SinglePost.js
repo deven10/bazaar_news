@@ -213,7 +213,10 @@ export const SinglePost = () => {
                   <div className="posts-wrapper">
                     <div className="default-section-block posts">
                       <div className="post-user-img">
-                        <img src={deven} alt="deven" />
+                        <img
+                          src={particularPost?.avatar}
+                          alt={particularPost?.username}
+                        />
                       </div>
                       <div className="post-details">
                         <div className="post-user-created-date">

@@ -1,6 +1,12 @@
 import { v4 as uuid } from "uuid";
 import { formatDate } from "../utils/authUtils";
 
+import adarsh from "../../images/adarsh_balika.jpg";
+import tanay from "../../images/tanay_pratap.jpg";
+import shubham from "../../images/shubham_soni.jpg";
+import bruce from "../../images/bruce_wayne.jpg";
+import john from "../../images/john_wick.jpg";
+
 /**
  * Posts can be added here.
  * You can add default posts of your wish with different attributes
@@ -25,6 +31,7 @@ export const posts = [
           password: "shubhamsoni",
           updatedAt: formatDate(),
           username: "shubhamsoni",
+          avatar: shubham,
           _id: uuid(),
         },
       ],
@@ -34,6 +41,7 @@ export const posts = [
     firstName: "Adarsh",
     lastName: "Balika",
     createdAt: "01/05/2023",
+    avatar: adarsh,
     updatedAt: formatDate(),
   },
   {
@@ -46,6 +54,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "shubhamsoni",
+    avatar: shubham,
     firstName: "shubham",
     lastName: "soni",
     createdAt: "11/15/2021",
@@ -61,6 +70,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "Adarsh",
+          avatar: adarsh,
           followers: [],
           following: [],
           // id: "1",
@@ -74,6 +84,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "Tanay",
+          avatar: tanay,
           followers: [],
           following: [],
           // id: "1",
@@ -87,6 +98,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "shubham",
+          avatar: shubham,
           followers: [],
           following: [],
           // id: "1",
@@ -101,6 +113,7 @@ export const posts = [
     },
     username: "brucewayne",
     firstName: "Bruce",
+    avatar: bruce,
     lastName: "Wayne",
     createdAt: "04/04/2019",
     updatedAt: formatDate(),
@@ -118,6 +131,7 @@ export const posts = [
           firstName: "Adarsh",
           followers: [],
           following: [],
+          avatar: adarsh,
           // id: "1",
           lastName: "Balika",
           password: "adarshBalika123",
@@ -129,6 +143,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "Tanay",
+          avatar: tanay,
           followers: [],
           following: [],
           // id: "1",
@@ -142,6 +157,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "shubham",
+          avatar: shubham,
           followers: [],
           following: [],
           // id: "1",
@@ -155,6 +171,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "Bruce",
+          avatar: bruce,
           followers: [],
           following: [],
           // id: "1",
@@ -169,6 +186,7 @@ export const posts = [
     },
     username: "johnwick",
     firstName: "John",
+    avatar: john,
     lastName: "Wick",
     createdAt: "06/05/2023",
     updatedAt: formatDate(),
@@ -183,6 +201,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "Bruce",
+          avatar: bruce,
           followers: [],
           following: [],
           // id: "1",
@@ -196,6 +215,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "Adarsh",
+          avatar: adarsh,
           followers: [],
           following: [],
           // id: "1",
@@ -209,6 +229,7 @@ export const posts = [
           bookmarks: [],
           createdAt: formatDate(),
           firstName: "John",
+          avatar: john,
           followers: [],
           following: [],
           // id: "1",
@@ -223,6 +244,7 @@ export const posts = [
     },
     username: "tanayPratap",
     firstName: "Tanay",
+    avatar: tanay,
     lastName: "Pratap",
     createdAt: "12/31/2022",
     updatedAt: formatDate(),

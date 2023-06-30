@@ -23,6 +23,13 @@ import Modal from "@mui/material/Modal";
 import deven from "../../images/deven.jpg";
 import "./User.css";
 
+import barbie from "../../images/barbie.jpg";
+import ben10 from "../../images/ben10.jpg";
+import female from "../../images/female.png";
+import male from "../../images/male.png";
+import person1 from "../../images/person-1.jpg";
+import person2 from "../../images/person-2.jpg";
+
 // Three Dots
 const ThreeDots = ({ post }) => {
   const { handleDeletePost } = useContext(ContextPosts);
@@ -251,7 +258,17 @@ const ProfileModal = ({ userDetails }) => {
         <Box sx={style}>
           <div className="edit-post-wrapper">
             <div className="create-a-post-section">
-              <img className="logged-in-user-img" src={deven} alt="deven" />
+              <div className="img-wrapper">
+                <img
+                  className="logged-in-user-img"
+                  src={updatedUserDetails?.avatar}
+                  alt={updatedUserDetails?.username}
+                />
+                <AvatarModal
+                  updatedUserDetails={updatedUserDetails}
+                  setUpdatedUserDetails={setUpdatedUserDetails}
+                />
+              </div>
               <div className="create-a-post-wrapper">
                 <input
                   type="text"
@@ -286,6 +303,81 @@ const ProfileModal = ({ userDetails }) => {
                 </div>
               </div>
             </div>
+          </div>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
+
+// Edit Avatar Modal
+const AvatarModal = ({ setUpdatedUserDetails, updatedUserDetails }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    height: 200,
+    boxShadow: 24,
+    p: 4,
+    bgcolor: "#fff",
+    borderRadius: "10px",
+    padding: "15px 30px",
+  };
+
+  const editPostButtonStyles = {
+    bgcolor: "transparent",
+    color: "#000",
+    fontSize: "14px",
+    fontWeight: "600",
+  };
+
+  return (
+    <div>
+      {/* <Button >EDIT</Button> */}
+      {/* <button className="add-new-post-button">Edit Profile</button> */}
+      <i
+        className="fa-solid fa-camera camera-icon"
+        onClick={handleOpen}
+        sx={editPostButtonStyles}
+      ></i>
+      <Modal
+        open={open}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="avatar-wrapper">
+            {[barbie, ben10, female, male, person1, person2].map((img) => (
+              <img
+                key={img}
+                onClick={() => {
+                  // handleEditProfile(updatedUserDetails);
+                  setUpdatedUserDetails((prev) => ({ ...prev, avatar: img }));
+                  handleClose();
+                }}
+                src={img}
+                className="avatar-image"
+              />
+            ))}
+          </div>
+          <div className="d-flex">
+            <button
+              onClick={() => handleClose()}
+              className="discard-modal-button mx-2"
+            >
+              Discard
+            </button>
           </div>
         </Box>
       </Modal>
@@ -358,7 +450,11 @@ export const User = () => {
             <div className="col-md-5">
               <div className="users-post-section-wrapper">
                 <div className="default-section-block logged-in-user-details">
-                  <img className="logged-in-user-img" src={deven} alt="deven" />
+                  <img
+                    className="logged-in-user-img"
+                    src={userDetails?.avatar}
+                    alt={userDetails?.username}
+                  />
                   <div className="user-profile-details">
                     <div className="logged-in-user-name">
                       <p>
@@ -431,7 +527,7 @@ export const User = () => {
                         key={post._id}
                       >
                         <div className="post-user-img">
-                          <img src={deven} alt="deven" />
+                          <img src={post?.avatar} alt={post?.username} />
                         </div>
                         <div className="post-details">
                           <div className="post-user-created-date">

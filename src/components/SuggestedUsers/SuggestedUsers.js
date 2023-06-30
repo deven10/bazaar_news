@@ -47,8 +47,8 @@ export const SuggestedUsers = ({ usersData }) => {
                     <>
                       <img
                         className="suggested-users-img"
-                        src={deven}
-                        alt="deven"
+                        src={user?.avatar}
+                        alt={user.username}
                       />
                       <div>
                         <p className="name">

@@ -129,7 +129,9 @@ const BasicModal = ({ setAnchorEl, post }) => {
         <Box sx={style}>
           <div className="edit-post-wrapper">
             <div className="create-a-post-section">
-              <img className="logged-in-user-img" src={deven} alt="deven" />
+              <div>
+                <img className="logged-in-user-img" src={deven} alt="deven" />
+              </div>
               <div className="create-a-post-wrapper">
                 <textarea
                   className="create-a-post-input"
@@ -243,7 +245,11 @@ export const Home = () => {
             <div className="col-lg-5 col-md-7">
               <div className="users-post-section-wrapper">
                 <div className="default-section-block create-a-post-section">
-                  <img className="logged-in-user-img" src={deven} alt="deven" />
+                  <img
+                    className="logged-in-user-img"
+                    src={loggedInUser?.avatar}
+                    alt={loggedInUser?.username}
+                  />
                   <div className="create-a-post-wrapper">
                     <textarea
                       className="create-a-post-input"
@@ -291,7 +297,7 @@ export const Home = () => {
                           key={post._id}
                         >
                           <div className="post-user-img">
-                            <img src={deven} alt="deven" />
+                            <img src={post?.avatar} alt={post?.username} />
                           </div>
                           <div className="post-details">
                             <div className="post-user-created-date">

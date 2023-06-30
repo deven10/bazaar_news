@@ -1,5 +1,11 @@
 import { v4 as uuid } from "uuid";
 import { formatDate } from "../utils/authUtils";
+
+import adarsh from "../../images/adarsh_balika.jpg";
+import tanay from "../../images/tanay_pratap.jpg";
+import shubham from "../../images/shubham_soni.jpg";
+import bruce from "../../images/bruce_wayne.jpg";
+import john from "../../images/john_wick.jpg";
 /**
  * User Database can be added here.
  * You can add default users of your wish with different attributes
@@ -16,6 +22,7 @@ export const users = [
     updatedAt: formatDate(),
     bio: "I am Groot 😉",
     website: "https://linktr.ee/umraniadeven",
+    avatar: adarsh,
   },
   {
     _id: uuid(),
@@ -27,6 +34,7 @@ export const users = [
     updatedAt: formatDate(),
     bio: "Ex Microsoft, Mentor, Teacher, Entrepreneur",
     website: "https://neog.camp/",
+    avatar: tanay,
   },
   {
     _id: uuid(),
@@ -38,6 +46,7 @@ export const users = [
     updatedAt: formatDate(),
     bio: "Eat, Sleep, Code, Repeat",
     website: "https://github.com/deven10",
+    avatar: shubham,
   },
   {
     _id: uuid(),
@@ -49,6 +58,7 @@ export const users = [
     updatedAt: formatDate(),
     bio: "I'm Batman 🦇",
     website: "https://www.linkedin.com/in/umraniadeven/",
+    avatar: bruce,
   },
   {
     _id: uuid(),
@@ -60,5 +70,6 @@ export const users = [
     updatedAt: formatDate(),
     bio: "Wanna Play Football ⚽?",
     website: "https://deven-portfolio.netlify.app/",
+    avatar: john,
   },
 ];
