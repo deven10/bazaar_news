@@ -1,8 +1,9 @@
 import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
 import { formatDate } from "../utils/authUtils";
+// import defaultAvatar from "../../images/male.png";
 const sign = require("jwt-encode");
-
+const defaultAvatar = "https://i.ibb.co/d2Z36HF/male.png";
 /**
  * All the routes related to Auth are present here.
  * These are Publicly accessible routes.
@@ -36,6 +37,7 @@ export const signupHandler = function (schema, request) {
       updatedAt: formatDate(),
       username,
       password,
+      avatar: defaultAvatar,
       ...rest,
       followers: [],
       following: [],

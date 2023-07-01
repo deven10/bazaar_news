@@ -19,11 +19,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContext>
-        <UsersContext>
-          <PostsContext>
+        <PostsContext>
+          <UsersContext>
             <App />
-          </PostsContext>
-        </UsersContext>
+          </UsersContext>
+        </PostsContext>
       </AuthContext>
     </BrowserRouter>
   </React.StrictMode>

@@ -20,7 +20,6 @@ import Modal from "@mui/material/Modal";
 
 import "./Home.css";
 
-import deven from "../../images/deven.jpg";
 import { ReactToastify } from "../../utility/ReactToastify";
 
 // Three Dots
@@ -130,7 +129,11 @@ const BasicModal = ({ setAnchorEl, post }) => {
           <div className="edit-post-wrapper">
             <div className="create-a-post-section">
               <div>
-                <img className="logged-in-user-img" src={deven} alt="deven" />
+                <img
+                  className="logged-in-user-img"
+                  src={updatedPost.avatar}
+                  alt={updatedPost.usernames}
+                />
               </div>
               <div className="create-a-post-wrapper">
                 <textarea
@@ -247,7 +250,11 @@ export const Home = () => {
                 <div className="default-section-block create-a-post-section">
                   <img
                     className="logged-in-user-img"
-                    src={loggedInUser?.avatar}
+                    src={
+                      usersData.find(
+                        (user) => user.username === loggedInUser?.username
+                      )?.avatar
+                    }
                     alt={loggedInUser?.username}
                   />
                   <div className="create-a-post-wrapper">
@@ -291,13 +298,19 @@ export const Home = () => {
 
                   <div className="posts-wrapper">
                     {usersPosts?.map((post) => {
+                      const currrentPostUserAvatar = usersData.find(
+                        (user) => user.username === post?.username
+                      )?.avatar;
                       return (
                         <div
                           className="default-section-block posts"
                           key={post._id}
                         >
                           <div className="post-user-img">
-                            <img src={post?.avatar} alt={post?.username} />
+                            <img
+                              src={currrentPostUserAvatar}
+                              alt={post?.username}
+                            />
                           </div>
                           <div className="post-details">
                             <div className="post-user-created-date">

@@ -23,12 +23,12 @@ import Modal from "@mui/material/Modal";
 import deven from "../../images/deven.jpg";
 import "./User.css";
 
-import barbie from "../../images/barbie.jpg";
-import ben10 from "../../images/ben10.jpg";
-import female from "../../images/female.png";
-import male from "../../images/male.png";
-import person1 from "../../images/person-1.jpg";
-import person2 from "../../images/person-2.jpg";
+const barbie = "https://i.ibb.co/27T7TWr/barbie.jpg";
+const ben10 = "https://i.ibb.co/RNcm4TN/ben10.jpg";
+const female = "https://i.ibb.co/BLb6RTT/female.png";
+const male = "https://i.ibb.co/d2Z36HF/male.png";
+const person1 = "https://i.ibb.co/xz3Fvb3/person-1.jpg";
+const person2 = "https://i.ibb.co/FKDz010/person-2.jpg";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
@@ -311,7 +311,7 @@ const ProfileModal = ({ userDetails }) => {
 };
 
 // Edit Avatar Modal
-const AvatarModal = ({ setUpdatedUserDetails, updatedUserDetails }) => {
+const AvatarModal = ({ setUpdatedUserDetails }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -344,8 +344,6 @@ const AvatarModal = ({ setUpdatedUserDetails, updatedUserDetails }) => {
 
   return (
     <div>
-      {/* <Button >EDIT</Button> */}
-      {/* <button className="add-new-post-button">Edit Profile</button> */}
       <i
         className="fa-solid fa-camera camera-icon"
         onClick={handleOpen}
@@ -521,13 +519,19 @@ export const User = () => {
                 </div>
                 <div className="posts-wrapper">
                   {userPosts?.map((post) => {
+                    const currrentPostUserAvatar = usersData.find(
+                      (user) => user.username === post?.username
+                    )?.avatar;
                     return (
                       <div
                         className="default-section-block posts"
                         key={post._id}
                       >
                         <div className="post-user-img">
-                          <img src={post?.avatar} alt={post?.username} />
+                          <img
+                            src={currrentPostUserAvatar}
+                            alt={post?.username}
+                          />
                         </div>
                         <div className="post-details">
                           <div className="post-user-created-date">

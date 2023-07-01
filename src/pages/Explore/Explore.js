@@ -14,7 +14,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
-import deven from "../../images/deven.jpg";
 import { ContextPosts } from "../../contexts/PostsContext";
 import { ContextUsers } from "../../contexts/UsersContext";
 
@@ -75,6 +74,7 @@ const ThreeDots = ({ post }) => {
 
 // Post Edit Modal
 const BasicModal = ({ setAnchorEl, post }) => {
+  const { usersData } = useContext(ContextUsers);
   const { handleEditPost } = useContext(ContextPosts);
   const [open, setOpen] = React.useState(false);
 
@@ -110,6 +110,10 @@ const BasicModal = ({ setAnchorEl, post }) => {
     fontWeight: "600",
   };
 
+  const currrentPostUserAvatar = usersData.find(
+    (user) => user.username === post?.username
+  )?.avatar;
+
   return (
     <div>
       <Button onClick={handleOpen} sx={editPostButtonStyles}>
@@ -124,7 +128,11 @@ const BasicModal = ({ setAnchorEl, post }) => {
         <Box sx={style}>
           <div className="edit-post-wrapper">
             <div className="create-a-post-section">
-              <img className="logged-in-user-img" src={deven} alt="deven" />
+              <img
+                className="logged-in-user-img"
+                src={currrentPostUserAvatar}
+                alt={updatedPost.username}
+              />
               <div className="create-a-post-wrapper">
                 <textarea
                   className="create-a-post-input"
@@ -209,13 +217,19 @@ export const Explore = () => {
                 <div className="users-posts-section">
                   <div className="posts-wrapper">
                     {usersPosts?.map((post) => {
+                      const currrentPostUserAvatar = usersData.find(
+                        (user) => user.username === post?.username
+                      )?.avatar;
                       return (
                         <div
                           className="default-section-block posts"
                           key={post._id}
                         >
                           <div className="post-user-img">
-                            <img src={post?.avatar} alt={post.username} />
+                            <img
+                              src={currrentPostUserAvatar}
+                              alt={post.username}
+                            />
                           </div>
                           <div className="post-details">
                             <div className="post-user-created-date">

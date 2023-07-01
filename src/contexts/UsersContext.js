@@ -1,11 +1,13 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 
 import { ReactToastify } from "../utility/ReactToastify";
+import { ContextPosts } from "./PostsContext";
 
 export const ContextUsers = createContext();
 
 export const UsersContext = ({ children }) => {
+  const { fetchPosts } = useContext(ContextPosts);
   const [usersData, setUsersData] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -17,6 +19,7 @@ export const UsersContext = ({ children }) => {
       const result = await axios.get(`/api/users`);
       if (result.status === 200) {
         setUsersData(result.data.users);
+        fetchPosts();
       } else {
         setUsersData([]);
       }

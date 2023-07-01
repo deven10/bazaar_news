@@ -89,6 +89,7 @@ export const createPostHandler = function (schema, request) {
       username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
+      avatar: user.avatar,
       createdAt: formatDate(),
       updatedAt: formatDate(),
     };
@@ -177,6 +178,7 @@ export const likePostHandler = function (schema, request) {
       createdAt,
       updatedAt,
       followers,
+      avatar,
       following,
     } = user;
     const postId = request.params.postId;
@@ -199,6 +201,7 @@ export const likePostHandler = function (schema, request) {
       username,
       createdAt,
       updatedAt,
+      avatar,
       followers,
       following,
     });

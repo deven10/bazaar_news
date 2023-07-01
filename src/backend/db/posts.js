@@ -1,11 +1,11 @@
 import { v4 as uuid } from "uuid";
 import { formatDate } from "../utils/authUtils";
 
-import adarsh from "../../images/adarsh_balika.jpg";
-import tanay from "../../images/tanay_pratap.jpg";
-import shubham from "../../images/shubham_soni.jpg";
-import bruce from "../../images/bruce_wayne.jpg";
-import john from "../../images/john_wick.jpg";
+const adarsh = "https://i.ibb.co/QN1NmRj/adarsh-balika.jpg";
+const bruce = "https://i.ibb.co/R0sRR6Q/bruce-wayne.jpg";
+const john = "https://i.ibb.co/TmYfHXq/john-wick.jpg";
+const shubham = "https://i.ibb.co/5rTX8xX/shubham-soni.jpg";
+const tanay = "https://i.ibb.co/LvVryfK/tanay-pratap.jpg";
 
 /**
  * Posts can be added here.

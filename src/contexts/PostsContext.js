@@ -265,6 +265,7 @@ export const PostsContext = ({ children }) => {
         bookmarkPosts,
         handleDeletePost,
         handleEditPost,
+        fetchPosts,
       }}
     >
       {children}
