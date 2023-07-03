@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { ContextUsers } from "../../contexts/UsersContext";
 
-import deven from "../../images/deven.jpg";
-
 export const SuggestedUsers = ({ usersData }) => {
+  const navigate = useNavigate();
   const { followUser } = useContext(ContextUsers);
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
@@ -49,12 +49,21 @@ export const SuggestedUsers = ({ usersData }) => {
                         className="suggested-users-img"
                         src={user?.avatar}
                         alt={user.username}
+                        onClick={() => navigate(`/user/${user.username}`)}
                       />
                       <div>
-                        <p className="name">
+                        <p
+                          className="name"
+                          onClick={() => navigate(`/user/${user.username}`)}
+                        >
                           {user.firstName} {user.lastName}
                         </p>
-                        <p className="username">@{user.username}</p>
+                        <p
+                          className="username"
+                          onClick={() => navigate(`/user/${user.username}`)}
+                        >
+                          @{user.username}
+                        </p>
                       </div>
 
                       <button

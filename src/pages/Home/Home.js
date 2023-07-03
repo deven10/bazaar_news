@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { ContextUsers } from "../../contexts/UsersContext";
@@ -173,6 +173,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 };
 
 export const Home = () => {
+  const navigate = useNavigate();
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
@@ -256,6 +257,7 @@ export const Home = () => {
                       )?.avatar
                     }
                     alt={loggedInUser?.username}
+                    onClick={() => navigate(`/user/${loggedInUser?.username}`)}
                   />
                   <div className="create-a-post-wrapper">
                     <textarea
@@ -310,6 +312,9 @@ export const Home = () => {
                             <img
                               src={currrentPostUserAvatar}
                               alt={post?.username}
+                              onClick={() =>
+                                navigate(`/user/${post?.username}`)
+                              }
                             />
                           </div>
                           <div className="post-details">
@@ -372,7 +377,9 @@ export const Home = () => {
                               <i className="fa-regular fa-comment"></i>
                               <i
                                 onClick={() =>
-                                  sharePostURL(`/api/post/${post._id}`)
+                                  sharePostURL(
+                                    `https://bazaar-news.vercel.app/post/${post._id}`
+                                  )
                                 }
                                 className="fa-solid fa-share-nodes"
                               ></i>

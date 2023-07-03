@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Navbar } from "../../components/Header/Navbar";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
@@ -15,7 +17,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
-import deven from "../../images/deven.jpg";
 import { ContextPosts } from "../../contexts/PostsContext";
 import { ContextUsers } from "../../contexts/UsersContext";
 
@@ -171,6 +172,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 };
 
 export const Bookmark = () => {
+  const navigate = useNavigate();
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
@@ -238,11 +240,19 @@ export const Bookmark = () => {
                               <img
                                 src={currrentPostUserAvatar}
                                 alt={post.username}
+                                onClick={() =>
+                                  navigate(`/user/${post?.username}`)
+                                }
                               />
                             </div>
                             <div className="post-details">
                               <div className="post-user-created-date">
-                                <p className="post-user-date">
+                                <p
+                                  className="post-user-date"
+                                  onClick={() =>
+                                    navigate(`/user/${post?.username}`)
+                                  }
+                                >
                                   {post?.firstName} {post?.lastName} ·{" "}
                                   <span>
                                     {convertDate(post?.createdAt) ?? "---"}
@@ -256,10 +266,18 @@ export const Bookmark = () => {
                                   ""
                                 )}
                               </div>
-                              <p className="post-user-username">
+                              <p
+                                className="post-user-username"
+                                onClick={() =>
+                                  navigate(`/user/${post?.username}`)
+                                }
+                              >
                                 @{post?.username}
                               </p>
-                              <p className="post-user-content">
+                              <p
+                                className="post-user-content"
+                                onClick={() => navigate(`/post/${post._id}`)}
+                              >
                                 {post?.content}
                               </p>
                               <div className="post-call-to-action-buttons">
