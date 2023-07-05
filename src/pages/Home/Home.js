@@ -193,13 +193,33 @@ export const Home = () => {
   const [usersPosts, setUsersPosts] = useState([]);
   const [sortBy, setSortBy] = useState("latest");
 
+  // Logged in User details
+  const temp = usersData.find(
+    (user) => user.username === loggedInUser?.username
+  );
+
+  // posts array for logged in user on Home page
+  let tempArr = [];
+
+  postsData.map((post) => {
+    for (let i = 0; i < temp?.following?.length; i++) {
+      if (post.username === temp?.following[i]?.username) {
+        tempArr.push(post);
+      }
+    }
+    if (post.username === temp?.username) {
+      tempArr.push(post);
+    }
+  });
+
   // sort functionality
   const sortByFunction = (type) => {
     if (type === "trending") {
       const sortByLikes = (data) => {
         return data.sort((a, b) => b?.likes?.likeCount - a?.likes?.likeCount);
       };
-      const mostLiked = sortByLikes(postsData);
+      const mostLiked = sortByLikes(tempArr);
+
       setUsersPosts(mostLiked);
       setSortBy("trending");
     } else {
@@ -208,7 +228,8 @@ export const Home = () => {
           (a, b) => new Date(b?.createdAt) - new Date(a?.createdAt)
         );
       };
-      const latestData = sortByCreatedAtDesc(postsData);
+      const latestData = sortByCreatedAtDesc(tempArr);
+
       setUsersPosts(latestData);
       setSortBy("latest");
     }
@@ -278,131 +299,141 @@ export const Home = () => {
                   </div>
                 </div>
 
-                <div className="users-posts-section">
-                  <div className="default-section-block filters-wrapper">
-                    <p
-                      style={{
-                        fontWeight: `${sortBy === "latest" ? "700" : "400"}`,
-                      }}
-                      onClick={() => sortByFunction("latest")}
-                    >
-                      Latest Posts
-                    </p>
-                    <p
-                      style={{
-                        fontWeight: `${sortBy === "trending" ? "700" : "400"}`,
-                      }}
-                      onClick={() => sortByFunction("trending")}
-                    >
-                      Trending Posts
-                    </p>
+                {usersPosts?.length <= 0 ? (
+                  <div className="default-section-block posts">
+                    <p className="m-0 text">No Posts Found</p>
+                    ¯\_(ツ)_/¯
                   </div>
+                ) : (
+                  <div className="users-posts-section">
+                    <div className="default-section-block filters-wrapper">
+                      <p
+                        style={{
+                          fontWeight: `${sortBy === "latest" ? "700" : "400"}`,
+                        }}
+                        onClick={() => sortByFunction("latest")}
+                      >
+                        Latest Posts
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: `${
+                            sortBy === "trending" ? "700" : "400"
+                          }`,
+                        }}
+                        onClick={() => sortByFunction("trending")}
+                      >
+                        Trending Posts
+                      </p>
+                    </div>
 
-                  <div className="posts-wrapper">
-                    {usersPosts?.map((post) => {
-                      const currrentPostUserAvatar = usersData.find(
-                        (user) => user.username === post?.username
-                      )?.avatar;
-                      return (
-                        <div
-                          className="default-section-block posts"
-                          key={post._id}
-                        >
-                          <div className="post-user-img">
-                            <img
-                              src={currrentPostUserAvatar}
-                              alt={post?.username}
-                              onClick={() =>
-                                navigate(`/user/${post?.username}`)
-                              }
-                            />
-                          </div>
-                          <div className="post-details">
-                            <div className="post-user-created-date">
+                    <div className="posts-wrapper">
+                      {usersPosts?.map((post) => {
+                        const currrentPostUserAvatar = usersData.find(
+                          (user) => user.username === post?.username
+                        )?.avatar;
+                        return (
+                          <div
+                            className="default-section-block posts"
+                            key={post._id}
+                          >
+                            <div className="post-user-img">
+                              <img
+                                src={currrentPostUserAvatar}
+                                alt={post?.username}
+                                onClick={() =>
+                                  navigate(`/user/${post?.username}`)
+                                }
+                              />
+                            </div>
+                            <div className="post-details">
+                              <div className="post-user-created-date">
+                                <Link
+                                  to={`/user/${post.username}`}
+                                  className="post-user-date"
+                                >
+                                  {post.firstName} {post.lastName} ·{" "}
+                                  <span>
+                                    {convertDate(post.createdAt) ?? "---"}
+                                  </span>
+                                </Link>
+                                {post.username === loggedInUser?.username ? (
+                                  <div className="post-edit-or-delete-options">
+                                    <ThreeDots post={post} />
+                                  </div>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
                               <Link
                                 to={`/user/${post.username}`}
-                                className="post-user-date"
+                                className="post-user-username"
                               >
-                                {post.firstName} {post.lastName} ·{" "}
-                                <span>
-                                  {convertDate(post.createdAt) ?? "---"}
-                                </span>
+                                @{post.username}
                               </Link>
-                              {post.username === loggedInUser?.username ? (
-                                <div className="post-edit-or-delete-options">
-                                  <ThreeDots post={post} />
+                              <p className="post-user-content">
+                                <Link
+                                  className="post-link"
+                                  to={`/post/${post._id}`}
+                                >
+                                  {post.content}
+                                </Link>
+                              </p>
+                              <div className="post-call-to-action-buttons">
+                                <div className="post-likes-count">
+                                  {post.likes.likedBy.find(
+                                    (likedUser) =>
+                                      likedUser.username ===
+                                      JSON.parse(localStorage.getItem("user"))
+                                        .username
+                                  ) ? (
+                                    <i
+                                      className="fa-solid fa-heart"
+                                      onClick={() => DislikePost(post._id)}
+                                    ></i>
+                                  ) : (
+                                    <i
+                                      className="fa-regular fa-heart"
+                                      onClick={() => LikePost(post._id)}
+                                    ></i>
+                                  )}
+                                  <p>
+                                    {post.likes.likeCount > 0
+                                      ? post.likes.likeCount
+                                      : ""}
+                                  </p>
                                 </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                            <Link
-                              to={`/user/${post.username}`}
-                              className="post-user-username"
-                            >
-                              @{post.username}
-                            </Link>
-                            <p className="post-user-content">
-                              <Link
-                                className="post-link"
-                                to={`/post/${post._id}`}
-                              >
-                                {post.content}
-                              </Link>
-                            </p>
-                            <div className="post-call-to-action-buttons">
-                              <div className="post-likes-count">
-                                {post.likes.likedBy.find(
-                                  (likedUser) =>
-                                    likedUser.username ===
-                                    JSON.parse(localStorage.getItem("user"))
-                                      .username
+                                <i className="fa-regular fa-comment"></i>
+                                <i
+                                  onClick={() =>
+                                    sharePostURL(
+                                      `https://bazaar-news.vercel.app/post/${post._id}`
+                                    )
+                                  }
+                                  className="fa-solid fa-share-nodes"
+                                ></i>
+                                {bookmarkPosts.find(
+                                  (bookmarkPost) =>
+                                    bookmarkPost._id === post._id
                                 ) ? (
                                   <i
-                                    className="fa-solid fa-heart"
-                                    onClick={() => DislikePost(post._id)}
+                                    className="fa-solid fa-bookmark"
+                                    onClick={() => RemoveBookmarkPost(post._id)}
                                   ></i>
                                 ) : (
                                   <i
-                                    className="fa-regular fa-heart"
-                                    onClick={() => LikePost(post._id)}
+                                    className="fa-regular fa-bookmark"
+                                    onClick={() => BookmarkPost(post._id)}
                                   ></i>
                                 )}
-                                <p>
-                                  {post.likes.likeCount > 0
-                                    ? post.likes.likeCount
-                                    : ""}
-                                </p>
                               </div>
-                              <i className="fa-regular fa-comment"></i>
-                              <i
-                                onClick={() =>
-                                  sharePostURL(
-                                    `https://bazaar-news.vercel.app/post/${post._id}`
-                                  )
-                                }
-                                className="fa-solid fa-share-nodes"
-                              ></i>
-                              {bookmarkPosts.find(
-                                (bookmarkPost) => bookmarkPost._id === post._id
-                              ) ? (
-                                <i
-                                  className="fa-solid fa-bookmark"
-                                  onClick={() => RemoveBookmarkPost(post._id)}
-                                ></i>
-                              ) : (
-                                <i
-                                  className="fa-regular fa-bookmark"
-                                  onClick={() => BookmarkPost(post._id)}
-                                ></i>
-                              )}
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
             {/* Search box & suggested users (right one) */}
