@@ -6,6 +6,8 @@ import { ContextUsers } from "../../contexts/UsersContext";
 import { ContextPosts } from "../../contexts/PostsContext";
 import { Navbar } from "../../components/Header/Navbar";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
+import { ReactToastify } from "../../utility/ReactToastify";
+import { sharePostURL } from "../../utility/sharePostURL";
 
 // Three Dots
 import IconButton from "@mui/material/IconButton";
@@ -19,8 +21,6 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 import "./Home.css";
-
-import { ReactToastify } from "../../utility/ReactToastify";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
@@ -250,12 +250,6 @@ export const Home = () => {
     }
   };
 
-  const sharePostURL = (url) => {
-    navigator.clipboard
-      .writeText(url)
-      .then(() => ReactToastify("URL Copied", "info"));
-  };
-
   return (
     <div>
       <Navbar />
@@ -403,7 +397,15 @@ export const Home = () => {
                                       : ""}
                                   </p>
                                 </div>
-                                <i className="fa-regular fa-comment"></i>
+                                <i
+                                  onClick={() =>
+                                    ReactToastify(
+                                      "This Feature is in Progress 🚀",
+                                      "info"
+                                    )
+                                  }
+                                  className="fa-regular fa-comment"
+                                ></i>
                                 <i
                                   onClick={() =>
                                     sharePostURL(

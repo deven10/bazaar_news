@@ -6,8 +6,8 @@ import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { ContextPosts } from "../../contexts/PostsContext";
 import { ContextUsers } from "../../contexts/UsersContext";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
-
-import deven from "../../images/deven.jpg";
+import { sharePostURL } from "../../utility/sharePostURL";
+import { ReactToastify } from "../../utility/ReactToastify";
 
 // Three Dots
 import IconButton from "@mui/material/IconButton";
@@ -21,7 +21,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 // Three Dots
-const ThreeDots = ({ post }) => {
+const ThreeDots = () => {
   const { handleDeletePost } = useContext(ContextPosts);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -31,6 +31,15 @@ const ThreeDots = ({ post }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { postId } = useParams();
+  const { postsData } = useContext(ContextPosts);
+  const [particularPost, setParticularPost] = useState({});
+
+  useEffect(() => {
+    const temp = postsData.find((post) => post._id === postId);
+    setParticularPost(temp);
+  }, [postsData]);
 
   return (
     <>
@@ -56,13 +65,13 @@ const ThreeDots = ({ post }) => {
           onClose={handleClose}
         >
           <MenuItem>
-            <BasicModal post={post} setAnchorEl={setAnchorEl} />
+            <BasicModal post={particularPost} setAnchorEl={setAnchorEl} />
           </MenuItem>
           <MenuItem>
             <button
               className="delete-post-button"
               onClick={() => {
-                handleDeletePost(post._id);
+                handleDeletePost(particularPost?._id);
                 handleClose();
               }}
             >
@@ -126,11 +135,15 @@ const BasicModal = ({ setAnchorEl, post }) => {
         <Box sx={style}>
           <div className="edit-post-wrapper">
             <div className="create-a-post-section">
-              <img className="logged-in-user-img" src={deven} alt="deven" />
+              <img
+                className="logged-in-user-img"
+                src={updatedPost?.avatar}
+                alt={updatedPost?.username}
+              />
               <div className="create-a-post-wrapper">
                 <textarea
                   className="create-a-post-input"
-                  value={updatedPost.content}
+                  value={updatedPost?.content}
                   onChange={(e) => {
                     setUpdatedPost({ ...updatedPost, content: e.target.value });
                   }}
@@ -230,7 +243,7 @@ export const SinglePost = () => {
                           {particularPost?.username ===
                           loggedInUser?.username ? (
                             <div className="post-edit-or-delete-options">
-                              <ThreeDots particularPost={particularPost} />
+                              <ThreeDots />
                             </div>
                           ) : (
                             ""
@@ -266,8 +279,23 @@ export const SinglePost = () => {
                                 : ""}
                             </p>
                           </div>
-                          <i className="fa-regular fa-comment"></i>
-                          <i className="fa-solid fa-share-nodes"></i>
+                          <i
+                            onClick={() =>
+                              ReactToastify(
+                                "This Feature is in Progress 🚀",
+                                "info"
+                              )
+                            }
+                            className="fa-regular fa-comment"
+                          ></i>
+                          <i
+                            onClick={() =>
+                              sharePostURL(
+                                `https://bazaar-news.vercel.app/post/${particularPost?._id}`
+                              )
+                            }
+                            className="fa-solid fa-share-nodes"
+                          ></i>
                           {bookmarkPosts.find(
                             (bookmarkPost) =>
                               bookmarkPost._id === particularPost._id

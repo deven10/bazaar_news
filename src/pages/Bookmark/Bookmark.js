@@ -5,6 +5,8 @@ import { Navbar } from "../../components/Header/Navbar";
 
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
+import { sharePostURL } from "../../utility/sharePostURL";
+import { ReactToastify } from "../../utility/ReactToastify";
 
 // Three Dots
 import IconButton from "@mui/material/IconButton";
@@ -304,8 +306,23 @@ export const Bookmark = () => {
                                       : ""}
                                   </p>
                                 </div>
-                                <i className="fa-regular fa-comment"></i>
-                                <i className="fa-solid fa-share-nodes"></i>
+                                <i
+                                  onClick={() =>
+                                    ReactToastify(
+                                      "This Feature is in Progress 🚀",
+                                      "info"
+                                    )
+                                  }
+                                  className="fa-regular fa-comment"
+                                ></i>
+                                <i
+                                  onClick={() =>
+                                    sharePostURL(
+                                      `https://bazaar-news.vercel.app/post/${post._id}`
+                                    )
+                                  }
+                                  className="fa-solid fa-share-nodes"
+                                ></i>
                                 {bookmarkPosts?.find(
                                   (bookmarkPost) =>
                                     bookmarkPost?._id === post?._id
