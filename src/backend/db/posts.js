@@ -14,7 +14,8 @@ const tanay = "https://i.ibb.co/LvVryfK/tanay-pratap.jpg";
 
 export const posts = [
   {
-    _id: uuid(),
+    // _id: uuid(),
+    _id: "1abc-2xyz-3pqr",
     content:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
     likes: {
@@ -45,7 +46,8 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    // _id: uuid(),
+    _id: "2abc-2xyz-3pqr",
     content:
       "nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
     likes: {
@@ -61,7 +63,8 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    // _id: uuid(),
+    _id: "3abc-2xyz-3pqr",
     content: "Dark Knight Rises, Gotham is in Safe hands",
     likes: {
       likeCount: 3,
@@ -119,7 +122,8 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    // _id: uuid(),
+    _id: "4abc-2xyz-3pqr",
     content:
       "You gotta be a fighter to be a lover, If you don't fight for your love, what kind of love is it?",
     likes: {
@@ -192,7 +196,8 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    // _id: uuid(),
+    _id: "5abc-2xyz-3pqr",
     content: "Being the Mentor I never had.",
     likes: {
       likeCount: 3,
