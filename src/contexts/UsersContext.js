@@ -89,7 +89,12 @@ export const UsersContext = ({ children }) => {
 
   return (
     <ContextUsers.Provider
-      value={{ usersData, fetchUsers, followUser, unfollowUser }}
+      value={{
+        usersData,
+        fetchUsers,
+        followUser,
+        unfollowUser,
+      }}
     >
       {children}
     </ContextUsers.Provider>
