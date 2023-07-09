@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 import "./QuickLinks.css";
 
 export const QuickLinks = () => {
+  const { themeToggler } = useContext(ContextTheme);
   const AddPostButton = () => {
     return (
       <button type="button" className="addPost">
@@ -30,21 +33,34 @@ export const QuickLinks = () => {
   };
 
   return (
-    <div className="default-section-block quick-links">
+    <div
+      className={`default-section-block ${
+        themeToggler === "dark" ? "dark" : ""
+      } quick-links`}
+    >
       <div className="links-wrapper">
-        <Link className="link" to="/home">
+        <Link
+          className={`link ${themeToggler === "dark" ? "dark" : ""}`}
+          to="/home"
+        >
           <span>
             <i className="fa-solid fa-house"></i>
           </span>
           <span className="quick-link">Home</span>
         </Link>
-        <Link className="link" to="/explore">
+        <Link
+          className={`link ${themeToggler === "dark" ? "dark" : ""}`}
+          to="/explore"
+        >
           <span>
             <i className="fa-solid fa-compass"></i>
           </span>
           <span className="quick-link">Explore</span>
         </Link>
-        <Link className="link" to="/bookmark">
+        <Link
+          className={`link ${themeToggler === "dark" ? "dark" : ""}`}
+          to="/bookmark"
+        >
           <span>
             <i className="fa-solid fa-bookmark"></i>
           </span>

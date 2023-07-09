@@ -194,7 +194,7 @@ export const Bookmark = () => {
     for (let i = 0; i < bookmarkPosts.length; i++) {
       for (let j = 0; j < postsData.length; j++) {
         if (bookmarkPosts[i]._id === postsData[j]._id) {
-          filterArr.push({ ...postsData[j] });
+          filterArr.push(postsData[j]);
         }
       }
     }

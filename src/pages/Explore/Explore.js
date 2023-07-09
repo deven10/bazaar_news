@@ -8,6 +8,7 @@ import { ReactToastify } from "../../utility/ReactToastify";
 import { sharePostURL } from "../../utility/sharePostURL";
 import { ContextPosts } from "../../contexts/PostsContext";
 import { ContextUsers } from "../../contexts/UsersContext";
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 // Three Dots
 import IconButton from "@mui/material/IconButton";
@@ -22,6 +23,7 @@ import Modal from "@mui/material/Modal";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
+  const { themeToggler } = useContext(ContextTheme);
   const { handleDeletePost } = useContext(ContextPosts);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -34,7 +36,11 @@ const ThreeDots = ({ post }) => {
 
   return (
     <>
-      <div className="three-dots home-page">
+      <div
+        className={`three-dots ${
+          themeToggler === "dark" ? "dark" : ""
+        } home-page`}
+      >
         <IconButton
           className="more-options"
           aria-label="more"
@@ -145,7 +151,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
                   }}
                 ></textarea>
                 <div className="create-a-post-footer-wrapper">
-                  <i className="fa-solid fa-image"></i>
+                  {/* <i className="fa-solid fa-image"></i> */}
                   <div className="d-flex">
                     <button
                       onClick={() => handleClose()}
@@ -174,6 +180,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 };
 
 export const Explore = () => {
+  const { themeToggler } = useContext(ContextTheme);
   const navigate = useNavigate();
   const { usersData } = useContext(ContextUsers);
   const {
@@ -226,7 +233,9 @@ export const Explore = () => {
                       )?.avatar;
                       return (
                         <div
-                          className="default-section-block posts"
+                          className={`default-section-block ${
+                            themeToggler === "dark" ? "dark" : ""
+                          } posts`}
                           key={post._id}
                         >
                           <div className="post-user-img">
@@ -241,7 +250,9 @@ export const Explore = () => {
                           <div className="post-details">
                             <div className="post-user-created-date">
                               <p
-                                className="post-user-date"
+                                className={`post-user-date ${
+                                  themeToggler === "dark" ? "dark" : ""
+                                }`}
                                 onClick={() =>
                                   navigate(`/user/${post?.username}`)
                                 }
@@ -260,7 +271,9 @@ export const Explore = () => {
                               )}
                             </div>
                             <p
-                              className="post-user-username"
+                              className={`post-user-username ${
+                                themeToggler === "dark" ? "dark" : ""
+                              }`}
                               onClick={() =>
                                 navigate(`/user/${post?.username}`)
                               }

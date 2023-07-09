@@ -42,11 +42,23 @@
     font-size: 18px;
     font-family: 'Poppins', sans-serif;
     flex: 1;
+    color: #222222;
+}
+
+.create-a-post-input.dark {
+  color: #CFCFCF;
+}
+.create-a-post-input::placeholder{
+  color: #858585;
+}
+.create-a-post-input.dark::placeholder{
+  color: #898989;
 }
 
 .create-a-post-footer-wrapper{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: end;
     width: 100%;
 }
 
@@ -97,6 +109,18 @@
     font-size: 16px;
     font-family:'Poppins', sans-serif;
     cursor: pointer;
+    color: #222222;
+  }
+  .dark.filters-wrapper p{
+    color: #CFCFCF;
+  }
+
+  .text{
+    margin: 0;
+    font-size: 16px; 
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    word-break: break-word;
   }
 
   /* Posts */
@@ -113,6 +137,10 @@
     gap: 10px;
     width: 100%;
     font-weight: 700;
+    color: #222222;
+  }
+  .dark.posts{
+    color: #CFCFCF;
   }
 
   .post-user-img img{
@@ -144,8 +172,11 @@
     font-family:'Poppins', sans-serif;
     font-weight: 500;
     text-decoration: none;
-    color: #111;
+    color: #212529;
     cursor: pointer;
+  }
+  .post-user-date.dark{
+    color: #C9C9C9; 
   }
 
   .post-user-date span{
@@ -153,6 +184,13 @@
     font-size: 16px;
     font-family:'Poppins', sans-serif;
     font-weight: 400;
+  }
+  .post-user-date.dark span{
+    color: #7b7b7b;
+  }
+
+  .three-dots.dark.home-page .css-78trlr-MuiButtonBase-root-MuiIconButton-root, .three-dots.home-page .css-1yxmbwk{
+    color: #fff;
   }
 
   .post-edit-or-delete-options{
@@ -170,6 +208,9 @@
     color: #373737;
     cursor: pointer;
   }
+  .post-user-username.dark {
+    color: #7b7b7b;
+  }
 
   .post-user-content{
     margin: 0;
@@ -182,9 +223,12 @@
   }
 
   .post-link{
-    color: #111;
+    color: #222222;
     text-decoration: none;
     list-style: none;
+  }
+  .post-link.dark{
+    color: #CFCFCF;
   }
 
   .post-call-to-action-buttons{
@@ -325,6 +369,10 @@
     border-bottom: 1px solid #bababa;
     padding-bottom: 5px;
     width: 100%;
+    color: #212529;
+}
+.suggested-users .title.dark{
+  color: #C9C9C9;
 }
 
 .individual-user{
@@ -342,12 +390,20 @@
     font-weight: 500;
     font-size: 16px;
     cursor: pointer;
+    color: #212529;
+}
+.individual-user .name.dark{
+    color: #C9C9C9;
 }
 
 .individual-user .username{
     font-weight: 400;
     font-size: 14px;
     cursor: pointer;
+    color: #222222;
+}
+.individual-user .username.dark{
+    color: #CFCFCF;
 }
 
 .suggested-users-img{

@@ -2,9 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ContextUsers } from "../../contexts/UsersContext";
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 export const SuggestedUsers = ({ usersData }) => {
   const navigate = useNavigate();
+  const { themeToggler } = useContext(ContextTheme);
   const { followUser } = useContext(ContextUsers);
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
   const [showUsers, setShowUsers] = useState([]);
@@ -37,7 +39,7 @@ export const SuggestedUsers = ({ usersData }) => {
   return (
     <div>
       <div className="suggested-users-wrapper">
-        <div className="default-section-block">
+        {/* <div className="default-section-block">
           <div className="search-bar">
             <input
               type="text"
@@ -46,11 +48,17 @@ export const SuggestedUsers = ({ usersData }) => {
             />
             <i className="fa-solid fa-magnifying-glass"></i>
           </div>
-        </div>
+        </div> */}
         {showUsers?.length > 0 ? (
-          <div className="default-section-block">
+          <div
+            className={`default-section-block ${
+              themeToggler === "dark" ? "dark" : ""
+            }`}
+          >
             <div className="suggested-users">
-              <p className="title">Suggested Users</p>
+              <p className={`title ${themeToggler === "dark" ? "dark" : ""}`}>
+                Suggested Users
+              </p>
               {showUsers?.map((user) => {
                 return (
                   <div key={user._id} className="individual-user">
@@ -62,13 +70,17 @@ export const SuggestedUsers = ({ usersData }) => {
                     />
                     <div>
                       <p
-                        className="name"
+                        className={`name ${
+                          themeToggler === "dark" ? "dark" : ""
+                        }`}
                         onClick={() => navigate(`/user/${user.username}`)}
                       >
                         {user.firstName} {user.lastName}
                       </p>
                       <p
-                        className="username"
+                        className={`username ${
+                          themeToggler === "dark" ? "dark" : ""
+                        }`}
                         onClick={() => navigate(`/user/${user.username}`)}
                       >
                         @{user.username}

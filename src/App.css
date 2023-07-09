@@ -6,16 +6,27 @@ font-family: 'Poppins', sans-serif;
 font-family: 'Satisfy', cursive;
 */
 
+
+
+/* light mode main headings - #202124 / #212529 */
+/* light mode sub headings - #4d5156 / #222222 */
+/* dark mode main headings - #dadce0 / #C9C9C9 */
+/* dark mode sub headings - #bdc1c6 / #CFCFCF*/
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 .main-app{
   background-color: #f4f5fa;
   min-height: 100vh;
   width: 100%;
+}
+.main-app.dark{
+  background-color: #111;
 }
 
 .default-section-block {
@@ -25,15 +36,10 @@ font-family: 'Satisfy', cursive;
   padding: 15px 30px;
   width: 100%;
 }
+.default-section-block.dark {
+  background-color: #1f1f1f;
+}
 
 .default-page-margin{
   padding: 25px 0px;
-}
-
-.text{
-  margin: 0;
-  font-size: 16px; 
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  word-break: break-word;
 }

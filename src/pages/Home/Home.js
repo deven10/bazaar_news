@@ -8,6 +8,7 @@ import { Navbar } from "../../components/Header/Navbar";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
 import { ReactToastify } from "../../utility/ReactToastify";
 import { sharePostURL } from "../../utility/sharePostURL";
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 // Three Dots
 import IconButton from "@mui/material/IconButton";
@@ -24,6 +25,7 @@ import "./Home.css";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
+  const { themeToggler } = useContext(ContextTheme);
   const { handleDeletePost } = useContext(ContextPosts);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -36,7 +38,11 @@ const ThreeDots = ({ post }) => {
 
   return (
     <>
-      <div className="three-dots home-page">
+      <div
+        className={`three-dots ${
+          themeToggler === "dark" ? "dark" : ""
+        } home-page`}
+      >
         <IconButton
           className="more-options"
           aria-label="more"
@@ -174,6 +180,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { themeToggler } = useContext(ContextTheme);
   const { usersData } = useContext(ContextUsers);
   const {
     postsData,
@@ -201,6 +208,7 @@ export const Home = () => {
   // posts array for logged in user on Home page
   let tempArr = [];
 
+  // mapping over all posts and filtering out following users post and logged in users posts
   postsData.map((post) => {
     for (let i = 0; i < temp?.following?.length; i++) {
       if (post.username === temp?.following[i]?.username) {
@@ -263,7 +271,11 @@ export const Home = () => {
             {/* Users Posts sections (middle one) */}
             <div className="col-lg-5 col-md-7">
               <div className="users-post-section-wrapper">
-                <div className="default-section-block create-a-post-section">
+                <div
+                  className={`default-section-block ${
+                    themeToggler === "dark" ? "dark" : ""
+                  } create-a-post-section`}
+                >
                   <img
                     className="logged-in-user-img"
                     src={
@@ -276,13 +288,15 @@ export const Home = () => {
                   />
                   <div className="create-a-post-wrapper">
                     <textarea
-                      className="create-a-post-input"
+                      className={`create-a-post-input ${
+                        themeToggler === "dark" ? "dark" : ""
+                      }`}
                       placeholder="What's happening?"
                       value={postContent}
                       onChange={(e) => setPostContent(e.target.value)}
                     ></textarea>
                     <div className="create-a-post-footer-wrapper">
-                      <i className="fa-solid fa-image"></i>
+                      {/* <i className="fa-solid fa-image"></i> */}
                       <button
                         onClick={() => AddPost(postContent)}
                         className="add-new-post-button"
@@ -294,13 +308,21 @@ export const Home = () => {
                 </div>
 
                 {usersPosts?.length <= 0 ? (
-                  <div className="default-section-block posts">
-                    <p className="m-0 text">No Posts Found</p>
+                  <div
+                    className={`default-section-block ${
+                      themeToggler === "dark" ? "dark" : ""
+                    } posts`}
+                  >
+                    <p className={`m-0 text`}>No Posts Found</p>
                     ¯\_(ツ)_/¯
                   </div>
                 ) : (
                   <div className="users-posts-section">
-                    <div className="default-section-block filters-wrapper">
+                    <div
+                      className={`default-section-block ${
+                        themeToggler === "dark" ? "dark" : ""
+                      } filters-wrapper`}
+                    >
                       <p
                         style={{
                           fontWeight: `${sortBy === "latest" ? "700" : "400"}`,
@@ -328,7 +350,9 @@ export const Home = () => {
                         )?.avatar;
                         return (
                           <div
-                            className="default-section-block posts"
+                            className={`default-section-block ${
+                              themeToggler === "dark" ? "dark" : ""
+                            } posts`}
                             key={post._id}
                           >
                             <div className="post-user-img">
@@ -344,7 +368,9 @@ export const Home = () => {
                               <div className="post-user-created-date">
                                 <Link
                                   to={`/user/${post.username}`}
-                                  className="post-user-date"
+                                  className={`post-user-date ${
+                                    themeToggler === "dark" ? "dark" : ""
+                                  }`}
                                 >
                                   {post.firstName} {post.lastName} ·{" "}
                                   <span>
@@ -361,13 +387,17 @@ export const Home = () => {
                               </div>
                               <Link
                                 to={`/user/${post.username}`}
-                                className="post-user-username"
+                                className={`post-user-username ${
+                                  themeToggler === "dark" ? "dark" : ""
+                                }`}
                               >
                                 @{post.username}
                               </Link>
                               <p className="post-user-content">
                                 <Link
-                                  className="post-link"
+                                  className={`post-link ${
+                                    themeToggler === "dark" ? "dark" : ""
+                                  }`}
                                   to={`/post/${post._id}`}
                                 >
                                   {post.content}

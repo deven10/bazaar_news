@@ -4,6 +4,9 @@
     background-color: #fff;
     border-bottom: 1px solid hsla(0,0%,78%,.75);
 }
+.navbar.dark {
+  background-color: #303134;
+}
 
 .navbar .profile{
     display: flex;
@@ -38,12 +41,22 @@
     font-size: 30px;
     font-weight: 500;
     font-family: 'Satisfy', cursive;
-    color: #000 !important;
+    color: #202124;
     letter-spacing: 1px;
     margin: 0;
     cursor: pointer;
     text-decoration: none !important;
     list-style: none;
+}
+.logo.dark {
+  color: #dadce0;
+}
+
+.more-options.dark{
+  color: #fff !important;
+}
+.more-options.dark + .more-options:hover {
+  background-color: #f1f1f1 !important;
 }
 
 /* --------------- */

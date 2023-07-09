@@ -12,8 +12,11 @@
     font-size: 18px;
     margin: 5px 0px;
     padding: 5px 0px;
-    color: #000;
+    color: #212529;
     gap: 15px;
+}
+.quick-links .link.dark{
+  color: #C9C9C9;
 }
 
 .quick-links .link span i{
