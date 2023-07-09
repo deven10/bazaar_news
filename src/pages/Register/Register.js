@@ -173,7 +173,7 @@ export const Register = () => {
         </div>
         <div className="form-group">
           <label htmlFor="confirmPassword" className="form-label">
-            Password
+            Confirm Password
           </label>
           <div className="password-field">
             <input
