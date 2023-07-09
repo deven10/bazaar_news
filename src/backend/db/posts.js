@@ -16,8 +16,7 @@ export const posts = [
   {
     // _id: uuid(),
     _id: "1abc-2xyz-3pqr",
-    content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+    content: "Start where you are. Use what you have. Do what you can.",
     likes: {
       likeCount: 1,
       likedBy: [
@@ -49,7 +48,7 @@ export const posts = [
     // _id: uuid(),
     _id: "2abc-2xyz-3pqr",
     content:
-      "nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "SAFF Championship 2023 Final, India Vs Kuwait: India Win On Penalties After Match Ended 1-1 In Regulation Time",
     likes: {
       likeCount: 0,
       likedBy: [],
