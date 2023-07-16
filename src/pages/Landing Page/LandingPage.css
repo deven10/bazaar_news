@@ -37,7 +37,7 @@
 
 .join-now{
     width: 100%;
-    background-color: #4f4f4f;
+    background-color: #4d5156;
     color: #fff;
     border: 0;
     border-radius: 5px;
@@ -55,7 +55,7 @@
 .already-a-user{
     width: 100%;
     font-size: 1.2rem;
-    color: #333;
+    color: #4d5156;
     padding: 10px 0px;
     text-align: center;
 }

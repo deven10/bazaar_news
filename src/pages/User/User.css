@@ -20,11 +20,16 @@
     width: 100%;
 }
 
+
 .logged-in-user-name p{
     margin: 0;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 600;
+    color: #212529;
+}
+.logged-in-user-name.dark p{
+    color: #C9C9C9;
 }
 
 .user-action-buttons{
@@ -44,15 +49,24 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     text-decoration: none;
-    color: #373737;
+    color: #222222;
 }
+.user-profile-details .username.dark{
+    color: #CFCFCF;
+}
+
 
 .user-bio{
     font-size: 16px;
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
     margin: 0;
+    color: #222222;
 }
+.user-bio.dark{
+    color: #CFCFCF;
+}
+
 .website{
     margin: 0px 0px 10px 0px;
     font-weight: 400;
@@ -80,6 +94,10 @@
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
+    color: #212529;
+}
+.logged-in-user-info.dark p{
+    color: #C9C9C9;
 }
 
 .img-wrapper{

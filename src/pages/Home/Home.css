@@ -57,7 +57,6 @@
 
 .create-a-post-footer-wrapper{
     display: flex;
-    /* justify-content: space-between; */
     justify-content: end;
     width: 100%;
 }
@@ -193,6 +192,10 @@
     color: #666666 !important;
   }
   .three-dots.dark.home-page .css-78trlr-MuiButtonBase-root-MuiIconButton-root, .three-dots.home-page .css-1yxmbwk{
+    color: #fff;
+  }
+
+  .three-dots.dark button#long-button{
     color: #fff;
   }
 

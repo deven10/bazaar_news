@@ -21,10 +21,12 @@ import Modal from "@mui/material/Modal";
 
 import { ContextPosts } from "../../contexts/PostsContext";
 import { ContextUsers } from "../../contexts/UsersContext";
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
   const { handleDeletePost } = useContext(ContextPosts);
+  const { themeToggler } = useContext(ContextTheme);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -35,7 +37,11 @@ const ThreeDots = ({ post }) => {
   };
 
   return (
-    <div className="three-dots home-page">
+    <div
+      className={`three-dots ${
+        themeToggler === "dark" ? "dark" : ""
+      } home-page`}
+    >
       <IconButton
         className="more-options"
         aria-label="more"
@@ -176,6 +182,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 export const Bookmark = () => {
   const navigate = useNavigate();
   const { usersData } = useContext(ContextUsers);
+  const { themeToggler } = useContext(ContextTheme);
   const {
     postsData,
     LikePost,
@@ -235,7 +242,9 @@ export const Bookmark = () => {
                         )?.avatar;
                         return (
                           <div
-                            className="default-section-block posts"
+                            className={`default-section-block ${
+                              themeToggler === "dark" ? "dark" : ""
+                            } posts`}
                             key={post?._id}
                           >
                             <div className="post-user-img">
@@ -250,7 +259,9 @@ export const Bookmark = () => {
                             <div className="post-details">
                               <div className="post-user-created-date">
                                 <p
-                                  className="post-user-date"
+                                  className={`post-user-date ${
+                                    themeToggler === "dark" ? "dark" : ""
+                                  }`}
                                   onClick={() =>
                                     navigate(`/user/${post?.username}`)
                                   }
@@ -269,7 +280,9 @@ export const Bookmark = () => {
                                 )}
                               </div>
                               <p
-                                className="post-user-username"
+                                className={`post-user-username ${
+                                  themeToggler === "dark" ? "dark" : ""
+                                }`}
                                 onClick={() =>
                                   navigate(`/user/${post?.username}`)
                                 }
@@ -343,7 +356,11 @@ export const Bookmark = () => {
                         );
                       })
                     ) : (
-                      <div className="default-section-block posts">
+                      <div
+                        className={`default-section-block ${
+                          themeToggler === "dark" ? "dark" : ""
+                        } posts`}
+                      >
                         <p className="m-0 text">No Bookmarks Found</p>
                         ¯\_(ツ)_/¯
                       </div>

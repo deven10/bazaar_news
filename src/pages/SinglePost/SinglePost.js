@@ -8,6 +8,7 @@ import { ContextUsers } from "../../contexts/UsersContext";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
 import { sharePostURL } from "../../utility/sharePostURL";
 import { ReactToastify } from "../../utility/ReactToastify";
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 // Three Dots
 import IconButton from "@mui/material/IconButton";
@@ -22,6 +23,7 @@ import Modal from "@mui/material/Modal";
 
 // Three Dots
 const ThreeDots = () => {
+  const { themeToggler } = useContext(ContextTheme);
   const { handleDeletePost } = useContext(ContextPosts);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -43,7 +45,11 @@ const ThreeDots = () => {
 
   return (
     <>
-      <div className="three-dots home-page">
+      <div
+        className={`three-dots ${
+          themeToggler === "dark" ? "dark" : ""
+        } home-page`}
+      >
         <IconButton
           className="more-options"
           aria-label="more"
@@ -178,6 +184,7 @@ const BasicModal = ({ setAnchorEl, post }) => {
 };
 
 export const SinglePost = () => {
+  const { themeToggler } = useContext(ContextTheme);
   const { postId } = useParams();
   const {
     postsData,
@@ -224,7 +231,11 @@ export const SinglePost = () => {
               <div className="users-post-section-wrapper">
                 <div className="users-posts-section">
                   <div className="posts-wrapper">
-                    <div className="default-section-block posts">
+                    <div
+                      className={`default-section-block ${
+                        themeToggler === "dark" ? "dark" : ""
+                      } posts`}
+                    >
                       <div className="post-user-img">
                         <img
                           src={particularPost?.avatar}
@@ -233,7 +244,11 @@ export const SinglePost = () => {
                       </div>
                       <div className="post-details">
                         <div className="post-user-created-date">
-                          <p className="post-user-date">
+                          <p
+                            className={`post-user-date ${
+                              themeToggler === "dark" ? "dark" : ""
+                            }`}
+                          >
                             {particularPost?.firstName}{" "}
                             {particularPost?.lastName} ·{" "}
                             <span>
@@ -249,7 +264,11 @@ export const SinglePost = () => {
                             ""
                           )}
                         </div>
-                        <p className="post-user-username">
+                        <p
+                          className={`post-user-username ${
+                            themeToggler === "dark" ? "dark" : ""
+                          }`}
+                        >
                           @{particularPost?.username}
                         </p>
                         <p className="post-user-content">

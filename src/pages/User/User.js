@@ -8,6 +8,7 @@ import { ContextPosts } from "../../contexts/PostsContext";
 import { Navbar } from "../../components/Header/Navbar";
 import { SuggestedUsers } from "../../components/SuggestedUsers/SuggestedUsers";
 import { ReactToastify } from "../../utility/ReactToastify";
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 // Three Dots
 import IconButton from "@mui/material/IconButton";
@@ -32,6 +33,7 @@ const person2 = "https://i.ibb.co/FKDz010/person-2.jpg";
 
 // Three Dots
 const ThreeDots = ({ post }) => {
+  const { themeToggler } = useContext(ContextTheme);
   const { handleDeletePost } = useContext(ContextPosts);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -44,7 +46,11 @@ const ThreeDots = ({ post }) => {
 
   return (
     <>
-      <div className="three-dots home-page">
+      <div
+        className={`three-dots ${
+          themeToggler === "dark" ? "dark" : ""
+        } home-page`}
+      >
         <IconButton
           className="more-options"
           aria-label="more"
@@ -385,6 +391,7 @@ const AvatarModal = ({ setUpdatedUserDetails }) => {
 
 export const User = () => {
   const navigate = useNavigate();
+  const { themeToggler } = useContext(ContextTheme);
   const { usersData, followUser, unfollowUser } = useContext(ContextUsers);
   const {
     postsData,
@@ -447,14 +454,22 @@ export const User = () => {
             {/* Users Posts sections (middle one) */}
             <div className="col-md-5">
               <div className="users-post-section-wrapper">
-                <div className="default-section-block logged-in-user-details">
+                <div
+                  className={`default-section-block ${
+                    themeToggler === "dark" ? "dark" : ""
+                  } logged-in-user-details`}
+                >
                   <img
                     className="logged-in-user-img"
                     src={userDetails?.avatar}
                     alt={userDetails?.username}
                   />
                   <div className="user-profile-details">
-                    <div className="logged-in-user-name">
+                    <div
+                      className={`logged-in-user-name ${
+                        themeToggler === "dark" ? "dark" : ""
+                      }`}
+                    >
                       <p>
                         {userDetails?.firstName} {userDetails?.lastName}
                       </p>
@@ -494,8 +509,20 @@ export const User = () => {
                         )}
                       </div>
                     </div>
-                    <p className="username">@{userDetails?.username}</p>
-                    <p className="user-bio">{userDetails?.bio}</p>
+                    <p
+                      className={`username ${
+                        themeToggler === "dark" ? "dark" : ""
+                      }`}
+                    >
+                      @{userDetails?.username}
+                    </p>
+                    <p
+                      className={`user-bio ${
+                        themeToggler === "dark" ? "dark" : ""
+                      }`}
+                    >
+                      {userDetails?.bio}
+                    </p>
                     <Link
                       to={`${userDetails?.website}`}
                       target="_blank"
@@ -503,7 +530,11 @@ export const User = () => {
                     >
                       {userDetails?.website}
                     </Link>
-                    <div className="logged-in-user-info">
+                    <div
+                      className={`logged-in-user-info ${
+                        themeToggler === "dark" ? "dark" : ""
+                      }`}
+                    >
                       <p>
                         {
                           postsData.filter(
@@ -524,7 +555,9 @@ export const User = () => {
                     )?.avatar;
                     return (
                       <div
-                        className="default-section-block posts"
+                        className={`default-section-block ${
+                          themeToggler === "dark" ? "dark" : ""
+                        } posts`}
                         key={post._id}
                       >
                         <div className="post-user-img">
@@ -535,7 +568,11 @@ export const User = () => {
                         </div>
                         <div className="post-details">
                           <div className="post-user-created-date">
-                            <p className="post-user-date">
+                            <p
+                              className={`post-user-date ${
+                                themeToggler === "dark" ? "dark" : ""
+                              }`}
+                            >
                               {post.firstName} {post.lastName} ·{" "}
                               <span>
                                 {convertDate(post.createdAt) ?? "---"}
@@ -549,12 +586,18 @@ export const User = () => {
                               ""
                             )}
                           </div>
-                          <div className="post-user-username">
+                          <div
+                            className={`post-user-username ${
+                              themeToggler === "dark" ? "dark" : ""
+                            }`}
+                          >
                             @{post.username}
                           </div>
                           <p className="post-user-content">
                             <Link
-                              className="post-link"
+                              className={`post-link ${
+                                themeToggler === "dark" ? "dark" : ""
+                              }`}
                               to={`/post/${post._id}`}
                             >
                               {post.content}

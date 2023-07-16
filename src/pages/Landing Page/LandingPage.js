@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./LandingPage.css";
 
 import landingPageImg from "../../images/landing-image.jpg";
+import { ContextTheme } from "../../contexts/ThemeContext";
 
 export const LandingPage = () => {
+  const { themeToggler } = useContext(ContextTheme);
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -17,12 +19,23 @@ export const LandingPage = () => {
   return (
     <div className="full-page d-flex jc-center ai-center">
       <div className="half content">
-        <h2 className="animate__animated animate__fadeInDown">
+        <h2
+          style={{ color: themeToggler === "dark" ? "#C9C9C9" : "#212529" }}
+          className="animate__animated animate__fadeInDown"
+        >
           Welcome to Bazaar New's
         </h2>
         <div className="animate__animated animate__fadeInLeft">
-          <p className="p1">Searching for something?</p>
-          <p className="p2">
+          <p
+            style={{ color: themeToggler === "dark" ? "#CFCFCF" : "#222222" }}
+            className="p1"
+          >
+            Searching for something?
+          </p>
+          <p
+            style={{ color: themeToggler === "dark" ? "#CFCFCF" : "#222222" }}
+            className="p2"
+          >
             We got you covered, we've got ample of news, about sports, about
             politics, about climate, and much more.
           </p>
