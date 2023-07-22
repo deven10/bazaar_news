@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import { Navbar } from "../../components/Header/Navbar";
 import { QuickLinks } from "../../components/QuickLinks/QuickLinks";
@@ -244,7 +244,8 @@ export const SinglePost = () => {
                       </div>
                       <div className="post-details">
                         <div className="post-user-created-date">
-                          <p
+                          <Link
+                            to={`/user/${particularPost?.username}`}
                             className={`post-user-date ${
                               themeToggler === "dark" ? "dark" : ""
                             }`}
@@ -254,7 +255,8 @@ export const SinglePost = () => {
                             <span>
                               {convertDate(particularPost?.createdAt) ?? "---"}
                             </span>
-                          </p>
+                          </Link>
+
                           {particularPost?.username ===
                           loggedInUser?.username ? (
                             <div className="post-edit-or-delete-options">
@@ -264,13 +266,14 @@ export const SinglePost = () => {
                             ""
                           )}
                         </div>
-                        <p
+                        <Link
+                          to={`/user/${particularPost?.username}`}
                           className={`post-user-username ${
                             themeToggler === "dark" ? "dark" : ""
                           }`}
                         >
                           @{particularPost?.username}
-                        </p>
+                        </Link>
                         <p className="post-user-content">
                           {particularPost?.content}
                         </p>

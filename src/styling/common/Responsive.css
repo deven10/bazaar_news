@@ -48,16 +48,6 @@
         justify-content: space-between;
     }
 
-    .quick-links-container{
-        position: fixed;
-        right: 10px;
-        bottom: 10px;
-    }
-
-    .default-section-block{
-        padding: 10px 20px
-    }
-
     .suggested-users-img {
         width: 40px;
         height: 40px;
@@ -92,3 +82,133 @@
         font-size: 18px;
     }
 }
+
+
+/* FOR MOBILE SCREEN ONLY */
+@media (max-width: 575px){
+
+    /* CSS for top navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background-color: #fff;
+        border-bottom: 1px solid hsla(0,0%,78%,.75);
+    }
+
+    .logo{
+        font-size: 22px;
+    }
+
+    .navbar .profile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        gap: 10px;
+    }
+
+    /* CSS For left side Quick Links */
+    .col-md-3.quick-links-container {
+        position: fixed;
+        bottom: 0px;
+        z-index: 2;
+        padding: 0;
+    }
+
+    .default-section-block.quick-links {
+        padding: 8px 15px;
+        border-radius: 0;
+    }
+
+    .links-wrapper {
+        margin: 0;
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .quick-links .link {
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    .quick-links .link span i {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* CSS for center part Posts section */
+    .default-page-margin{
+        padding: 25px 0px 75px 0px;
+    }
+
+    .default-section-block{
+        padding: 10px 20px 10px 10px;
+    }
+
+    .default-section-block.filters-wrapper{
+        padding: 10px 20px;
+    }
+
+    .create-a-post-section{
+        gap: 5px;
+        justify-content: space-evenly;
+    }
+
+    .create-a-post-input{
+        font-size: 15px;
+        width: 100%;
+    }
+    
+    .filters-wrapper p{
+        font-size: 14px;
+    }
+
+    .post-user-img img{
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+        aspect-ratio: 1/1;
+    }
+
+    .logged-in-user-img{
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+    }
+
+    .post-user-date{
+        font-size: 14px;
+    }
+
+    .post-user-date span{
+        font-size: 13px;
+    }
+
+    .post-user-username{
+        font-size: 13px;
+    }
+
+    .post-user-content{
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .post-call-to-action-buttons i{
+        font-size: 18px;
+    }
+
+    /* CSS For right side Suggested users section */
+    .col-lg-4.col-md-5.suggested-users-section {
+        display: none;
+    }
+}
+
