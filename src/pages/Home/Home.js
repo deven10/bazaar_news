@@ -269,7 +269,7 @@ export const Home = () => {
               <QuickLinks />
             </div>
             {/* Users Posts sections (middle one) */}
-            <div className="col-lg-5 col-md-7 posts-section">
+            <div className="col-lg-5 col-md-5 posts-section">
               <div className="users-post-section-wrapper">
                 <div
                   className={`default-section-block ${
@@ -469,7 +469,7 @@ export const Home = () => {
               </div>
             </div>
             {/* Search box & suggested users (right one) */}
-            <div className="col-lg-4 col-md-5 suggested-users-section">
+            <div className="col-lg-4 col-md-4 suggested-users-section">
               <SuggestedUsers usersData={usersData} />
             </div>
           </div>

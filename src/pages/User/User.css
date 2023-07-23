@@ -41,6 +41,10 @@
 .logout-icon{
     font-size: 22px;
     cursor: pointer;
+    color: #111;
+}
+.logout-icon.dark{
+    color: #fff;
 }
 
 .user-profile-details .username{

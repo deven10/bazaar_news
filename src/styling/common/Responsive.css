@@ -175,14 +175,14 @@
     .post-user-img img{
         height: 50px;
         width: 50px;
-        object-fit: cover;
+        object-fit: fill;
         aspect-ratio: 1/1;
     }
 
     .logged-in-user-img{
         height: 50px;
         width: 50px;
-        object-fit: cover;
+        object-fit: fill;
     }
 
     .post-user-date{
@@ -206,8 +206,40 @@
         font-size: 18px;
     }
 
+    .default-section-block.logged-in-user-details {
+        padding: 10px 15px 10px 10px;
+    }
+
+    .logged-in-user-name p, .user-bio{
+        font-size: 14px;
+    }
+
+    .add-new-post-button{
+        padding: 3px 7px;
+        font-size: 12px;
+    }
+
+    .user-action-buttons{
+        gap: 8px;
+    }
+
+    .logout-icon{
+        font-size: 18px;
+    }
+
+
+    .user-profile-details .username{
+        font-size: 13px;
+    }
+
+    .website, .logged-in-user-info p{
+        font-size: 13px;
+        line-break: anywhere;
+    }
+
+
     /* CSS For right side Suggested users section */
-    .col-lg-4.col-md-5.suggested-users-section {
+    .col-lg-4.col-md-4.suggested-users-section {
         display: none;
     }
 }

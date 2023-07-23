@@ -448,11 +448,11 @@ export const User = () => {
         <div className="container">
           <div className="row">
             {/* Quick Links section (left one) */}
-            <div className="col-md-3">
+            <div className="col-md-3 quick-links-container">
               <QuickLinks />
             </div>
             {/* Users Posts sections (middle one) */}
-            <div className="col-md-5">
+            <div className="col-lg-5 col-md-5 posts-section">
               <div className="users-post-section-wrapper">
                 <div
                   className={`default-section-block ${
@@ -482,7 +482,9 @@ export const User = () => {
                                 localStorage.clear();
                                 navigate("/");
                               }}
-                              className="fa-solid fa-right-from-bracket logout-icon"
+                              className={`fa-solid fa-right-from-bracket logout-icon ${
+                                themeToggler === "dark" ? "dark" : ""
+                              }`}
                             ></i>
                           </>
                         ) : usersData
@@ -651,7 +653,7 @@ export const User = () => {
               </div>
             </div>
             {/* Search box & suggested users (right one) */}
-            <div className="col-md-4">
+            <div className="col-lg-4 col-md-4 suggested-users-section">
               <SuggestedUsers usersData={usersData} />
             </div>
           </div>
