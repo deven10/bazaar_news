@@ -21,7 +21,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
-import deven from "../../images/deven.jpg";
 import "./User.css";
 
 const barbie = "https://i.ibb.co/27T7TWr/barbie.jpg";
@@ -94,9 +93,12 @@ const ThreeDots = ({ post }) => {
 // Post Edit Modal
 const BasicModal = ({ setAnchorEl, post }) => {
   const { handleEditPost } = useContext(ContextPosts);
+  const { usersData } = useContext(ContextUsers);
   const [open, setOpen] = React.useState(false);
 
   const [updatedPost, setUpdatedPost] = useState({});
+
+  const user = usersData.find(({ username }) => username === post?.username);
 
   const handleOpen = () => {
     setOpen(true);
@@ -112,13 +114,12 @@ const BasicModal = ({ setAnchorEl, post }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
     height: 200,
     boxShadow: 24,
     p: 4,
     bgcolor: "#fff",
     borderRadius: "10px",
-    padding: "15px 30px",
+    padding: "15px",
   };
 
   const editPostButtonStyles = {
@@ -142,7 +143,11 @@ const BasicModal = ({ setAnchorEl, post }) => {
         <Box sx={style}>
           <div className="edit-post-wrapper">
             <div className="create-a-post-section">
-              <img className="logged-in-user-img" src={deven} alt="deven" />
+              <img
+                className="logged-in-user-img"
+                src={user?.avatar}
+                alt={user?.username}
+              />
               <div className="create-a-post-wrapper">
                 <textarea
                   className="create-a-post-input"
@@ -229,13 +234,12 @@ const ProfileModal = ({ userDetails }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
-    height: 200,
+    height: 150,
     boxShadow: 24,
     p: 4,
     bgcolor: "#fff",
     borderRadius: "10px",
-    padding: "15px 30px",
+    padding: "15px",
   };
 
   const editPostButtonStyles = {
@@ -279,6 +283,7 @@ const ProfileModal = ({ userDetails }) => {
                 <input
                   type="text"
                   name="bio"
+                  className="edit-user-details-input-field"
                   placeholder="Enter your bio..."
                   value={updatedUserDetails?.bio}
                   onChange={(e) => handleChange(e)}
@@ -286,6 +291,7 @@ const ProfileModal = ({ userDetails }) => {
                 <input
                   type="text"
                   name="website"
+                  className="edit-user-details-input-field"
                   placeholder="Enter your website..."
                   value={updatedUserDetails?.website}
                   onChange={(e) => handleChange(e)}
@@ -332,13 +338,12 @@ const AvatarModal = ({ setUpdatedUserDetails }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
-    height: 200,
+    // height: 200,
     boxShadow: 24,
     p: 4,
     bgcolor: "#fff",
     borderRadius: "10px",
-    padding: "15px 30px",
+    padding: "15px",
   };
 
   const editPostButtonStyles = {

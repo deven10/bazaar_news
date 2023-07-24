@@ -103,13 +103,12 @@ const BasicModal = ({ setAnchorEl, post }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
     height: 200,
     boxShadow: 24,
     p: 4,
     bgcolor: "#fff",
     borderRadius: "10px",
-    padding: "15px 30px",
+    padding: "15px",
   };
 
   const editPostButtonStyles = {

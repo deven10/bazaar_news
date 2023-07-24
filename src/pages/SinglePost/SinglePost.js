@@ -93,9 +93,14 @@ const ThreeDots = () => {
 // Post Edit Modal
 const BasicModal = ({ setAnchorEl, post }) => {
   const { handleEditPost } = useContext(ContextPosts);
+  const { usersData } = useContext(ContextUsers);
   const [open, setOpen] = React.useState(false);
 
   const [updatedPost, setUpdatedPost] = useState({});
+
+  const user = usersData.find(
+    ({ username }) => username === updatedPost?.username
+  );
 
   const handleOpen = () => {
     setOpen(true);
@@ -111,13 +116,12 @@ const BasicModal = ({ setAnchorEl, post }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
     height: 200,
     boxShadow: 24,
     p: 4,
     bgcolor: "#fff",
     borderRadius: "10px",
-    padding: "15px 30px",
+    padding: "15px",
   };
 
   const editPostButtonStyles = {
@@ -143,8 +147,8 @@ const BasicModal = ({ setAnchorEl, post }) => {
             <div className="create-a-post-section">
               <img
                 className="logged-in-user-img"
-                src={updatedPost?.avatar}
-                alt={updatedPost?.username}
+                src={user?.avatar}
+                alt={user?.username}
               />
               <div className="create-a-post-wrapper">
                 <textarea
@@ -199,11 +203,15 @@ export const SinglePost = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
   const [particularPost, setParticularPost] = useState({});
+  const [particularUser, setParticularUser] = useState({});
 
   useEffect(() => {
     const temp = postsData.find((post) => post._id === postId);
     setParticularPost(temp);
-  }, [postsData]);
+
+    const user = usersData.find(({ username }) => username === temp.username);
+    setParticularUser(user);
+  }, [postsData, usersData]);
 
   // helper function to convert the date
   const convertDate = (inputDate) => {
@@ -238,8 +246,8 @@ export const SinglePost = () => {
                     >
                       <div className="post-user-img">
                         <img
-                          src={particularPost?.avatar}
-                          alt={particularPost?.username}
+                          src={particularUser?.avatar}
+                          alt={particularUser?.username}
                         />
                       </div>
                       <div className="post-details">

@@ -1,20 +1,20 @@
 /* ------------- */
-@media (min-width: 320px) and (max-width: 374px){
-    .form{
+@media (min-width: 320px) and (max-width: 374px) {
+    .form {
         width: 96%;
         padding: 25px 15px;
     }
 }
 
-@media (min-width: 375px) and (max-width: 425px){
-    .form{
+@media (min-width: 375px) and (max-width: 425px) {
+    .form {
         width: 90%;
         padding: 25px 30px;
     }
 }
 
-@media (min-width: 426px) and (max-width: 1024px){
-    .form{
+@media (min-width: 426px) and (max-width: 1024px) {
+    .form {
         width: 60%;
         padding: 25px 30px;
     }
@@ -25,12 +25,15 @@
         width: 40px;
         height: 40px;
     }
+
     .individual-user .name {
         font-size: 14px;
     }
+
     .individual-user .username {
         font-size: 13px;
     }
+
     .follow-button {
         padding: 5px 7px;
         font-size: 14px;
@@ -38,7 +41,7 @@
 }
 
 @media (min-width: 426px) and (max-width: 768px) {
-    .quick-link{
+    .quick-link {
         display: none;
         width: max-content;
     }
@@ -52,40 +55,57 @@
         width: 40px;
         height: 40px;
     }
+
     .individual-user .name {
         font-size: 15px;
     }
-    .individual-user .username, .post-user-username {
+
+    .individual-user .username,
+    .post-user-username {
         font-size: 13px;
     }
-    .follow-button, .add-new-post-button, .discard-modal-button {
+
+    .follow-button,
+    .add-new-post-button,
+    .discard-modal-button {
         padding: 5px 10px;
         font-size: 13px;
     }
-    .search-box, .post-likes-count p{
+
+    .search-box,
+    .post-likes-count p {
         font-size: 16px;
     }
-    .logged-in-user-img, .post-user-img img{
+
+    .logged-in-user-img,
+    .post-user-img img {
         height: 50px;
         width: 50px;
     }
-    .create-a-post-input, .filters-wrapper p, .post-user-date, .post-user-date span{
+
+    .create-a-post-input,
+    .filters-wrapper p,
+    .post-user-date,
+    .post-user-date span {
         font-size: 15px;
     }
-    .create-a-post-footer-wrapper i{
-        font-size: 22px;   
+
+    .create-a-post-footer-wrapper i {
+        font-size: 22px;
     }
-    .post-user-content{
+
+    .post-user-content {
         font-size: 14px;
     }
-    .post-call-to-action-buttons i{
+
+    .post-call-to-action-buttons i {
         font-size: 18px;
     }
 }
 
 
 /* FOR MOBILE SCREEN ONLY */
-@media (max-width: 575px){
+@media (max-width: 575px) {
 
     /* CSS for top navbar */
     .navbar {
@@ -94,10 +114,10 @@
         align-items: center;
         padding: 15px;
         background-color: #fff;
-        border-bottom: 1px solid hsla(0,0%,78%,.75);
+        border-bottom: 1px solid hsla(0, 0%, 78%, .75);
     }
 
-    .logo{
+    .logo {
         font-size: 22px;
     }
 
@@ -146,63 +166,63 @@
     }
 
     /* CSS for center part Posts section */
-    .default-page-margin{
+    .default-page-margin {
         padding: 25px 0px 75px 0px;
     }
 
-    .default-section-block{
+    .default-section-block {
         padding: 10px 20px 10px 10px;
     }
 
-    .default-section-block.filters-wrapper{
+    .default-section-block.filters-wrapper {
         padding: 10px 20px;
     }
 
-    .create-a-post-section{
+    .create-a-post-section {
         gap: 5px;
         justify-content: space-evenly;
     }
 
-    .create-a-post-input{
+    .create-a-post-input {
         font-size: 15px;
         width: 100%;
     }
-    
-    .filters-wrapper p{
+
+    .filters-wrapper p {
         font-size: 14px;
     }
 
-    .post-user-img img{
+    .post-user-img img {
         height: 50px;
         width: 50px;
-        object-fit: fill;
+        object-fit: cover;
         aspect-ratio: 1/1;
     }
 
-    .logged-in-user-img{
+    .logged-in-user-img {
         height: 50px;
         width: 50px;
-        object-fit: fill;
+        object-fit: cover;
     }
 
-    .post-user-date{
+    .post-user-date {
         font-size: 14px;
     }
 
-    .post-user-date span{
+    .post-user-date span {
         font-size: 13px;
     }
 
-    .post-user-username{
+    .post-user-username {
         font-size: 13px;
     }
 
-    .post-user-content{
+    .post-user-content {
         font-size: 14px;
         margin-bottom: 10px;
     }
 
-    .post-call-to-action-buttons i{
+    .post-call-to-action-buttons i {
         font-size: 18px;
     }
 
@@ -210,37 +230,40 @@
         padding: 10px 15px 10px 10px;
     }
 
-    .logged-in-user-name p, .user-bio{
+    .logged-in-user-name p,
+    .user-bio {
         font-size: 14px;
     }
 
-    .add-new-post-button{
+    .add-new-post-button {
         padding: 3px 7px;
         font-size: 12px;
     }
 
-    .user-action-buttons{
+    .user-action-buttons {
         gap: 8px;
     }
 
-    .logout-icon{
+    .logout-icon {
         font-size: 18px;
     }
 
-
-    .user-profile-details .username{
+    .user-profile-details .username {
         font-size: 13px;
     }
 
-    .website, .logged-in-user-info p{
+    .website,
+    .logged-in-user-info p {
         font-size: 13px;
         line-break: anywhere;
     }
 
+    .avatar-wrapper{
+        grid-template-columns: 1fr 1fr;
+    }
 
     /* CSS For right side Suggested users section */
     .col-lg-4.col-md-4.suggested-users-section {
         display: none;
     }
 }
-

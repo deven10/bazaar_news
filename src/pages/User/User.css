@@ -115,9 +115,9 @@
 }
 
 .avatar-wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
     gap: 10px;
     padding: 10px;
 }
@@ -128,4 +128,11 @@
     object-fit: cover;
     object-position: center;
     cursor: pointer;
+}
+
+.edit-user-details-input-field{
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: 1px solid #111;
+    text-overflow: ellipsis;
 }

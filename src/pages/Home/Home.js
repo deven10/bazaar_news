@@ -86,9 +86,11 @@ const ThreeDots = ({ post }) => {
 // Post Edit Modal
 const BasicModal = ({ setAnchorEl, post }) => {
   const { handleEditPost } = useContext(ContextPosts);
+  const { usersData } = useContext(ContextUsers);
   const [open, setOpen] = React.useState(false);
 
   const [updatedPost, setUpdatedPost] = useState({});
+  const user = usersData.find(({ username }) => username === post?.username);
 
   const handleOpen = () => {
     setOpen(true);
@@ -104,13 +106,12 @@ const BasicModal = ({ setAnchorEl, post }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
     height: 200,
     boxShadow: 24,
     p: 4,
     bgcolor: "#fff",
     borderRadius: "10px",
-    padding: "15px 30px",
+    padding: "15px",
   };
 
   const editPostButtonStyles = {
@@ -137,8 +138,8 @@ const BasicModal = ({ setAnchorEl, post }) => {
               <div>
                 <img
                   className="logged-in-user-img"
-                  src={updatedPost.avatar}
-                  alt={updatedPost.usernames}
+                  src={user?.avatar}
+                  alt={user?.username}
                 />
               </div>
               <div className="create-a-post-wrapper">
