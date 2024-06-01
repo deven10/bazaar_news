@@ -1,38 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
 
 /* 
 font-family: 'Poppins', sans-serif;
 font-family: 'Satisfy', cursive;
 */
 
-
-
 /* light mode main headings - #202124 / #212529 */
 /* light mode sub headings - #4d5156 / #222222 */
 /* dark mode main headings - #dadce0 / #C9C9C9 */
 /* dark mode sub headings - #bdc1c6 / #CFCFCF*/
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
-.main-app{
+.main-app {
   background-color: #f4f5fa;
   min-height: 100vh;
   width: 100%;
 }
-.main-app.dark{
+.main-app.dark {
   background-color: #111;
 }
 
 .default-section-block {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 10px 0 rgba(58,53,65,.1);
+  box-shadow: 0 2px 10px 0 rgba(58, 53, 65, 0.1);
   padding: 15px 30px;
   width: 100%;
 }
@@ -40,6 +37,6 @@ font-family: 'Satisfy', cursive;
   background-color: #1f1f1f;
 }
 
-.default-page-margin{
+.default-page-margin {
   padding: 25px 0px;
 }
